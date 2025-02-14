@@ -18,8 +18,31 @@ views = Blueprint('views',__name__)
 ##Home Page route
 @views.route('/')
 def home():
-    top_reviews = Reviews.query.order_by(Reviews.created_at.desc()).limit(4).all()
-    return render_template('about.html', user=current_user, reviews=top_reviews)
+    # Fetch the top 4 latest reviews with profile pictures
+    top_reviews = db.session.query(Reviews, img.img).join(img, Reviews.member_id == img.member_id, isouter=True)\
+        .order_by(Reviews.created_at.desc()).limit(4).all()
+
+    reviews_with_images = []
+    for review, member_image in top_reviews:
+        reviews_with_images.append({
+            "id": review.id,
+            "name": review.name,
+            "stars": review.stars,
+            "review_text": review.review_text,
+            "created_at": review.created_at,
+            "member_image_path": member_image if member_image else "default_profile.jpg"
+        })
+
+    # Fetch upcoming events (assuming Event model has 'date' field)
+    upcoming_events = Events.query.filter(Events.date >= datetime.utcnow()).order_by(Events.date.asc()).limit(5).all()
+
+    return render_template(
+        'about.html', 
+        user=current_user, 
+        reviews=reviews_with_images, 
+        upcoming_events=upcoming_events
+    )
+
 
 @views.route('/profile')
 @login_required
@@ -28,14 +51,13 @@ def profile():
     member_image = img.query.filter_by(member_id=user_member.id).first()
 
     if member_image:
-        member_image_path = member_image.img  # No need to replace "static/"
+        member_image_path = member_image.img 
     else:
         member_image_path = "default_profile.jpg"
 
     return render_template(
         'profile.html', user=current_user, member=user_member, member_image_path=member_image_path
     )
-
 
 
 if not os.path.exists(UPLOAD_FOLDER):
@@ -48,7 +70,6 @@ def edit_profile():
     member = current_user.member 
 
     if request.method == 'POST':
-        # ✅ Step 1: Update Basic Member Information
         member.name = request.form.get('name', member.name)
         member.batch = request.form.get('batch', member.batch)
         member.specialization = request.form.get('specialization', member.specialization)
@@ -56,7 +77,6 @@ def edit_profile():
         member.contact = request.form.get('contact', member.contact)
         member.email = request.form.get('email', member.email)
 
-        # ✅ Step 2: Handle Image Upload (if any)
         if 'pic' in request.files:
          file = request.files['pic']
          if file and allowed_file(file.filename):
@@ -64,46 +84,37 @@ def edit_profile():
              file_path = os.path.join(UPLOAD_FOLDER, filename)
              file.save(file_path)
      
-             # Store only the relative path (without 'static/')
-             relative_path = os.path.join("uploads", filename).replace("\\", "/")  # Ensure correct format
+             relative_path = os.path.join("uploads", filename).replace("\\", "/") 
      
-             # Check if user already has an image
              existing_img = img.query.filter_by(member_id=member.id).first()
              
              if existing_img:
-                 # Update the existing image record
-                 existing_img.img = relative_path  # Update path
-                 existing_img.name = filename  # Update file name
-                 existing_img.mimetype = file.mimetype  # Update mimetype
+                 existing_img.img = relative_path 
+                 existing_img.name = filename
+                 existing_img.mimetype = file.mimetype 
              else:
-                 # Create a new record if no image exists
                  new_image = img(img=relative_path, name=filename, mimetype=file.mimetype, member_id=member.id)
                  db.session.add(new_image)
              
-        # ✅ Step 3: Append New Reviews Instead of Clearing
         new_reviews = request.form.getlist('reviews')
         for review in new_reviews:
-            if review.strip():  # Ensure it's not empty
+            if review.strip(): 
                 member.reviews.append(Reviews(content=review, member_id=member.id))
 
-        # ✅ Step 4: Append New Projects
         new_projects = request.form.getlist('projects')
         for project in new_projects:
             if project.strip():
                 member.projects.append(Project(title=project, member_id=member.id))
 
-        # ✅ Step 5: Append New Events
         new_events = request.form.getlist('upcoming_events')
         for event in new_events:
             if event.strip():
                 member.events.append(Events(event_name=event, member_id=member.id))
 
-        # ✅ Step 6: Commit Changes
         db.session.commit()
         flash("Profile updated successfully!", "success")
         return redirect(url_for('views.edit_profile'))
 
-    # Fetch member image
     member_image = img.query.filter_by(member_id=member.id).first()
 
     return render_template('editprofile.html', user=current_user, member=member, member_image=member_image)
@@ -115,7 +126,7 @@ def show_profile(member_id):
     member_image = img.query.filter_by(member_id=alumni.id).first()
 
     if member_image:
-        member_image_path = member_image.img  # No need to replace "static/"
+        member_image_path = member_image.img 
     else:
         member_image_path = "default_profile.jpg"
     return render_template('show_member.html',user = current_user, member = alumni,features=features, member_image_path=member_image_path)
@@ -124,18 +135,14 @@ def show_profile(member_id):
 @views.route('/toggle_friend/<int:member_id>', methods=['POST'])
 @login_required
 def toggle_friend(member_id):
-    # Get the current user's member instance
     current_member = current_user.member
 
-    # Fetch the member to be added/removed as a friend
     friend = Member.query.get_or_404(member_id)
 
-    # Prevent self-friendship
     if current_member.id == friend.id:
         flash("You cannot add yourself as a friend!", category="error")
         return redirect(url_for('views.show_profile', member_id=member_id))
 
-    # Toggle friendship status
     if current_member.is_friend(friend):
         current_member.friends.remove(friend)
         db.session.commit()
@@ -150,16 +157,14 @@ def toggle_friend(member_id):
 
 @views.route('/blogs', methods=['GET', 'POST'])
 def blogs():
-    search_query = request.args.get('search', '')  # Get search query from the request (default is an empty string)
+    search_query = request.args.get('search', '') 
     
     if search_query:
-        # Join the Blog and Member tables and filter by author name or blog title
         all_blogs = Blog.query.join(Member).filter(
             (Blog.title.ilike(f'%{search_query}%')) |
             (Member.name.ilike(f'%{search_query}%'))
         ).order_by(Blog.created_at.desc()).all()
     else:
-        # If no search query, show all blogs
         all_blogs = Blog.query.order_by(Blog.created_at.desc()).all()
 
     return render_template('blog.html', user=current_user, 
@@ -217,7 +222,7 @@ def alumni():
 
     user_member = current_user.member
 
-    # Render the template with paginated data
+    ### Render the template with paginated data
     return render_template(
         'member.html',
         user=current_user,
@@ -257,7 +262,7 @@ def add_event():
             return redirect(url_for('views.add_event'))
         
         try:
-            date = datetime.strptime(date, '%Y-%m-%d')  # Expected date format: YYYY-MM-DD
+            date = datetime.strptime(date, '%Y-%m-%d')  ###format: YYYY-MM-DD
         except ValueError:
             flash("Invalid date format. Please use YYYY-MM-DD.", "danger")
             return redirect(url_for('views.add_event'))
@@ -292,13 +297,12 @@ def aboutus():
     return render_template('aboutuspage.html', user=current_user)
 
 
-@views.route('/reviews', methods=['GET', 'POST'])
-@login_required
+@views.route('/reviews')
 def reviews():
     page = request.args.get('page', 1, type=int) 
 
     if request.method == 'POST':
-        # Get data from the form
+        ### Get data from the form
         member_id = request.form.get('member_id')  
         stars = request.form.get('stars')
         review_text = request.form.get('review_text')
@@ -321,10 +325,46 @@ def reviews():
         flash("Review added successfully!", "success")
         return redirect(url_for('views.reviews'))
 
-    # Handle GET request and pagination
-    reviews_paginated = Reviews.query.order_by(Reviews.created_at.desc()).paginate(page=page, per_page=5)
-    return render_template('reviews.html', reviews=reviews_paginated.items, user=current_user, pagination=reviews_paginated)
+    reviews_paginated = db.session.query(Reviews, img.img).join(img, Reviews.member_id == img.member_id, isouter=True)\
+        .order_by(Reviews.created_at.desc()).paginate(page=page, per_page=5)
 
+    reviews_with_images = []
+    for review, member_image in reviews_paginated.items:
+        reviews_with_images.append({
+            "id": review.id,
+            "name": review.name,
+            "stars": review.stars,
+            "review_text": review.review_text,
+            "created_at": review.created_at,
+            "member_image_path": member_image if member_image else "default_profile.jpg"
+        })
+
+    return render_template('reviews.html', 
+                           reviews=reviews_with_images,
+                           user=current_user, 
+                           pagination=reviews_paginated)
+
+
+@views.route('/load_reviews', methods=['GET'])
+def load_reviews():
+    page = request.args.get('page', 1, type=int)
+    per_page = 4  # 4 reviews per row
+    reviews_paginated = Reviews.query.order_by(Reviews.created_at.desc()).paginate(page=page, per_page=per_page)
+
+    reviews_data = []
+    for review in reviews_paginated.items:
+        member_image = img.query.filter_by(member_id=review.member_id).first()
+        member_image_path = member_image.img if member_image else "default_profile.jpg"
+
+        reviews_data.append({
+            "name": review.name,
+            "stars": review.stars,
+            "review_text": review.review_text,
+            "created_at": review.created_at.strftime('%Y-%m-%d'),
+            "member_image_path": member_image_path
+        })
+
+    return jsonify({"reviews": reviews_data})
 
 @views.route('/resources', methods=['GET'])
 def resources_page():
@@ -386,7 +426,7 @@ def alumnis():
     department = request.args.get('department', '')
     project_work = request.args.get('project_work', '')
 
-    # Build the query based on the search filters
+    ###Build the query based on the search filters
     alumni_query = Alumni.query
     if batch:
         alumni_query = alumni_query.filter(Alumni.batch.ilike(f'%{batch}%'))
@@ -408,3 +448,4 @@ def alumnis():
 def show_profiles(member_id):
     alumni_member = Alumni.query.get_or_404(member_id)
     return render_template('show_member.html', member=alumni_member,user=current_user,features=features)
+

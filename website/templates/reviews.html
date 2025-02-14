@@ -1,58 +1,63 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} Reviews {% endblock %} {% block
+body %}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='review_style.css') }}"
+/>
 
-{% block title %} Reviews {% endblock %}
+<div class="container">
+  <h1 class="page-title">User Reviews</h1>
 
-{% block body %}
-<link rel="stylesheet" href="{{ url_for('static', filename='review_style.css') }}">
+  <!-- Add Review Section -->
+  <div class="card add-review-card">
+    <h3>Share Your Experience</h3>
+    <p>Help others by sharing your thoughts!</p>
+    <a href="#add-review-form" class="btn add-review-btn">Write a Review</a>
+  </div>
 
-<h1 class="page-title">Reviews</h1>
+  <!-- Reviews Grid -->
+  <div id="reviews-container" class="reviews-container">
+    <!-- Reviews will be loaded dynamically -->
+  </div>
 
-<div class="card add-review-card">
-    <h3>Have an experience to share? Add a review!</h3>
-    <a href="#add-review-form" class="btn add-review-btn">Add Review</a>
+  <!-- Load More Button -->
+  <div class="load-more-container">
+    <button id="load-more-btn" class="btn load-more-btn">Load More</button>
+  </div>
 </div>
 
-<form id="add-review-form" action="{{ url_for('views.reviews') }}" method="POST" class="add-review-form">
-    <input type="hidden" name="member_id" value="1"> <!-- Replace with dynamic member ID -->
-    <div class="form-group">
-        <label for="stars">Stars (1-5):</label>
-        <input type="number" name="stars" class="form-control" min="1" max="5" required>
-    </div>
-    <div class="form-group">
-        <label for="review_text">Review:</label>
-        <textarea name="review_text" class="form-control" rows="3" placeholder="Write your review here..." required></textarea>
-    </div>
-    <button type="submit" class="btn submit-review-btn">Submit Review</button>
+<!-- Review Submission Form -->
+<form
+  id="add-review-form"
+  action="{{ url_for('views.reviews') }}"
+  method="POST"
+  class="add-review-form"
+>
+  <input type="hidden" name="member_id" value="1" />
+  <div class="form-group">
+    <label for="stars">Stars (1-5):</label>
+    <input
+      type="number"
+      name="stars"
+      class="form-control"
+      min="1"
+      max="5"
+      required
+    />
+  </div>
+  <div class="form-group">
+    <label for="review_text">Review:</label>
+    <textarea
+      name="review_text"
+      class="form-control"
+      rows="3"
+      placeholder="Write your review here..."
+      required
+    ></textarea>
+  </div>
+  <button type="submit" class="btn submit-review-btn">Submit Review</button>
 </form>
 
-<div class="reviews-container">
-    {% if reviews %}
-        {% for review in reviews %}
-        <div class="card review-card">
-            <img src="{{ url_for('static', filename='default.jpg') }}" alt="User Pic" class="profile-pic">
-            <div class="review-content">
-                <h4 class="review-author">{{ review.name }}</h4>
-                <div class="review-stars">
-                    <span class="stars">{% for i in range(review.stars) %}★{% endfor %}</span>
-                </div>
-                <p class="review-text">{{ review.review_text }}</p>
-                <p class="review-date">{{ review.created_at.strftime('%d %B %Y') }}</p>
-            </div>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p class="no-reviews">No reviews found. Be the first to add a review!</p>
-    {% endif %}
-</div>
-
-<!-- Pagination -->
-<div class="pagination">
-    {% if pagination.has_prev %}
-        <a href="{{ url_for('views.reviews', page=pagination.prev_num) }}" class="btn pagination-btn">Previous</a>
-    {% endif %}
-    {% if pagination.has_next %}
-        <a href="{{ url_for('views.reviews', page=pagination.next_num) }}" class="btn pagination-btn">Next</a>
-    {% endif %}
-</div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 
 {% endblock %}
