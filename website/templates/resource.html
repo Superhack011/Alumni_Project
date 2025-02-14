@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Resources
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='resources.css') }}">
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Alumni Projects</h1>
+
+    <!-- Button to Add New Project -->
+    <div class="text-center mb-4">
+        <a href="{{ url_for('views.add_project') }}" class="btn btn-success">Add New Project</a>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="row">
+        {% for project in projects %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card project-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.project_name }}</h5>
+                        <p class="card-text text-muted">{{ project.description[:100] }}...</p>
+                        <ul class="list-unstyled">
+                            <li><strong>Technologies:</strong> {{ project.technologies }}</li>
+                            <li><strong>Duration:</strong> {{ project.duration }}</li>
+                            {% if project.lead %}
+                                <li><strong>Lead:</strong> {{ project.lead }}</li>
+                            {% endif %}
+                            {% if project.team_members %}
+                                <li><strong>Team Members:</strong> {{ project.team_members }}</li>
+                            {% endif %}
+                        </ul>
+                        <a href="{{ url_for('views.project_details', project_id=project.id) }}" class="btn btn-primary mt-2">View Details</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center mt-4">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% if page > 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('views.resources_page', page=page - 1) }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for i in range(1, total_pages + 1) %}
+                    <li class="page-item {% if i == page %}active{% endif %}">
+                        <a class="page-link" href="{{ url_for('views.resources_page', page=i) }}">{{ i }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if page < total_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('views.resources_page', page=page + 1) }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

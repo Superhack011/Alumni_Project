@@ -1,0 +1,24 @@
+{% extends "layout.html" %} {% block title %} Event Details {% endblock %} {%
+block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='events.css') }}" />
+
+<div class="event-details-page">
+  <br />
+  <h1>{{ event.title }}</h1>
+  <div class="event-details-container">
+    <div class="event-image">
+      <img src="{{ event.image_url }}" alt="{{ event.title }}" />
+    </div>
+    <div class="event-info">
+      <p><strong>Date:</strong> {{ event.date.strftime('%Y-%m-%d') }}</p>
+      <p><strong>Location:</strong> {{ event.location }}</p>
+      <p><strong>Description:</strong> {{ event.description }}</p>
+      <p><strong>Organizer:</strong> {{ event.organizer }}</p>
+      <p><strong>Contact:</strong> {{ event.contact }}</p>
+    </div>
+  </div>
+  <a href="{{ url_for('views.events_page') }}" class="back-button"
+    >Back to Events</a
+  >
+</div>
+{% endblock %}

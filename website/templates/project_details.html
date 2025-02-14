@@ -1,0 +1,15 @@
+{% extends "layout.html" %} {% block title %} Resources {% endblock %} {% block
+body %}
+<link rel="stylesheet" href="{{ url_for('static',filename='resource.css') }}" />
+<div class="container mt-5">
+  <h1>{{ project.name }}</h1>
+  <p><strong>Description:</strong> {{ project.description }}</p>
+  <p><strong>Technologies:</strong> {{ project.technologies }}</p>
+  <p><strong>Duration:</strong> {{ project.duration }}</p>
+  <p><strong>Project Lead:</strong> {{ project.lead }}</p>
+  <p><strong>Team Members:</strong> {{ project.team_members }}</p>
+  <a href="/resources">Back to Projects</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Add New Project{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static',filename='add_project.css') }}" > 
+
+<div class="container mt-5">
+    <h1 class="text-center">Add New Project</h1>
+    <form method="POST" action="{{ url_for('views.add_project') }}">
+        <div class="form-group">
+            <label for="project_name">Project Name<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="project_name" name="project_name" placeholder="Enter project name" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="description">Description<span class="text-danger">*</span></label>
+            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter project description" required></textarea>
+        </div>
+        <div class="form-group mt-3">
+            <label for="technologies">Technologies Used<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="technologies" name="technologies" placeholder="e.g., Python, Flask, MySQL" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="duration">Duration<span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="duration" name="duration" placeholder="e.g., 3 months, 6 weeks" required>
+        </div>
+        <div class="form-group mt-3">
+            <label for="lead">Project Lead</label>
+            <input type="text" class="form-control" id="lead" name="lead" placeholder="Enter project lead (optional)">
+        </div>
+        <div class="form-group mt-3">
+            <label for="team_members">Team Members</label>
+            <input type="text" class="form-control" id="team_members" name="team_members" placeholder="Enter team members (comma-separated)">
+        </div>
+        <button type="submit" class="btn btn-success mt-4">Add Project</button>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout.html" %}
+
+{% block title %} {{ member.name }}'s Profile {% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='show_profile.css') }}" />
+
+<div class="profile-container">
+  <div class="profile-header text-center">
+    <img
+      src="{{ url_for('static', filename='uploads/' ~ (member.profile_picture if member.profile_picture else 'photo.jpg')) }}"
+      alt="Profile Picture"
+      class="profile-pic"
+    />
+    <h2>{{ member.name }}</h2>
+    <p class="bio">Batch: {{ member.batch }} | Department: {{ member.department }}</p>
+    <p class="specialization">Specialization: {{ member.specialization }}</p>
+  </div>
+
+  <!-- Friend Button -->
+  <div class="friend-button text-center">
+    <form method="POST" action="{{ url_for('views.toggle_friend', member_id=member.id) }}">
+      {% if current_user.is_authenticated and current_user.member.is_friend(member) %}
+      <button type="submit" class="btn btn-danger">
+        <i class="bi bi-person-dash"></i> Remove Friend
+      </button>
+      {% else %}
+      <button type="submit" class="btn btn-success">
+        <i class="bi bi-person-plus"></i> Add Friend
+      </button>
+      {% endif %}
+    </form>
+  </div>
+
+  <!-- Contact Information -->
+  <div class="contact-info">
+    <h3>Contact Information</h3>
+    <p><strong>Email:</strong> {{ member.email }}</p>
+    <p><strong>Phone:</strong> {{ member.contact }}</p>
+  </div>
+
+  <!-- Achievements Section -->
+  <div class="achievements">
+    <h3>Achievements</h3>
+    {% set achievements = member.get_list('achievements') %}
+    {% if achievements %}
+    <ul>
+      {% for achievement in achievements %}
+      <li>{{ achievement }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No achievements listed.</p>
+    {% endif %}
+  </div>
+
+  <!-- Experiences Section -->
+  <div class="experiences">
+    <h3>Experiences</h3>
+    {% set experiences = member.get_list('experiences') %}
+    {% if experiences %}
+    <ul>
+      {% for experience in experiences %}
+      <li>{{ experience }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No experiences listed.</p>
+    {% endif %}
+  </div>
+
+  <!-- Hobbies Section -->
+  <div class="hobbies">
+    <h3>Hobbies</h3>
+    {% set hobbies = member.get_list('hobbies') %}
+    {% if hobbies %}
+    <ul>
+      {% for hobby in hobbies %}
+      <li>{{ hobby }}</li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No hobbies listed.</p>
+    {% endif %}
+  </div>
+  <div>
+    {% if user.member.id != member.id %}
+    <button><a href="{{ url_for('features.chat', member_id=member.id) }}" class="btn btn-primary">Send Message</a></button> 
+    {% endif %}
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block title %} Alumni Leaderboard {% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='member.css') }}">
+
+<h1>Alumni Leaderboard</h1>
+
+<!-- Search form -->
+<form id="search-form" method="GET" action="{{ url_for('views.alumnis') }}">
+    <input type="text" name="batch" placeholder="Search by Batch Year" value="{{ request.args.get('batch', '') }}">
+    <input type="text" name="department" placeholder="Search by Department" value="{{ request.args.get('department', '') }}">
+    <input type="text" name="project_work" placeholder="Search by Project Work" value="{{ request.args.get('project_work', '') }}">
+    <button type="submit">Search</button>
+</form>
+
+<!-- Table to display alumni -->
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Batch Year</th>
+            <th>Department</th>
+            <th>Project Work</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alum in alumni %}
+        <tr>
+            <td><a href="{{ url_for('views.show_profiles', member_id=alum.id) }}">{{ alum.name }}</a></td>
+            <td>{{ alum.batch }}</td>
+            <td>{{ alum.department }}</td>
+            <td>{{ alum.project_work or 'N/A' }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Pagination controls -->
+<div class="pagination">
+    {% if current_page > 1 %}
+    <a href="{{ url_for('views.alumnis', page=current_page - 1, batch=request.args.get('batch'), department=request.args.get('department'), project_work=request.args.get('project_work')) }}" class="prev-button">Previous</a>
+    {% endif %}
+
+    {% for i in range(1, total_pages + 1) %}
+    <a href="{{ url_for('views.alumnis', page=i, batch=request.args.get('batch'), department=request.args.get('department'), project_work=request.args.get('project_work')) }}" class="{% if i == current_page %}active{% endif %}">{{ i }}</a>
+    {% endfor %}
+
+    {% if current_page < total_pages %}
+    <a href="{{ url_for('views.alumnis', page=current_page + 1, batch=request.args.get('batch'), department=request.args.get('department'), project_work=request.args.get('project_work')) }}" class="next-button">Next</a>
+    {% endif %}
+</div>
+
+<br><br>
+
+{% endblock %}

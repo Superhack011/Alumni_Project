@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% block title %}home page{% endblock %}
+{% block body %}
+
+<link rel="stylesheet" href="{{ url_for('static', filename='top.css') }}" />
+
+<div class="container mt-5">
+  <h1 class="text-center">Welcome to the Alumni Association</h1>
+  <p class="text-center">
+    Connect with your fellow alumni and stay updated on events and activities.
+  </p>
+
+  <!-- Features Section -->
+  <div class="row mt-4">
+    <div class="col-md-4 text-center">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Networking</h5>
+          <p class="card-text">Connect with alumni and build your professional network.</p>
+          <a href="/alumni" class="btn btn-primary">View Alumnis</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 text-center">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Events</h5>
+          <p class="card-text">Stay updated on alumni events, reunions, and activities.</p>
+          <a href="/events" class="btn btn-primary">View Events</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 text-center">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Resources</h5>
+          <p class="card-text">Access resources and opportunities for alumni.</p>
+          <a href="/resources" class="btn btn-primary">Explore Resources</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest Events Section -->
+  <div class="mt-5">
+    <h2 class="text-center">Upcoming Events</h2>
+    <ul class="list-group">
+      <li class="list-group-item">{% if upcoming_events %} {% for event in upcoming_events %}
+        <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
+        <div class="event-card">
+          <h3>{{ event.title }}</h3>
+          <p><strong>Date:</strong> {{ event.date }}</p>
+          <p>{{ event.description }}</p>
+        </div>{% endfor %} {% else %}
+        <p>No upcoming events at the moment.</p></li>{% endif %}
+      <!-- <li class="list-group-item">Career Fair - Date: September 10, 2024</li>
+      <li class="list-group-item">Networking Dinner - Date: November 20, 2024</li> -->
+    </ul>
+  </div>
+
+  <hr />
+
+  <h2 class="text-center mt-5">Top Reviews</h2>
+
+  <!-- Reviews Section -->
+  <div class="reviews-container">
+    {% for review in reviews %}
+      <div class="review-card">
+        <img src="{{ url_for('static', filename=review.profile_pic) }}" alt="User Pic" class="profile-pic">
+        <div class="review-content">
+          <h4 class="user-name">{{ review.name }}</h4>
+          <div class="review-stars">
+            <span class="stars">{% for i in range(review.stars) %}★{% endfor %}</span>
+          </div>
+          <p class="review-text">{{ review.review_text }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  
+  <!-- Read More Button -->
+  <div class="text-center mt-4">
+    <a href="{{ url_for('views.reviews') }}" class="btn btn-primary">Read More Reviews</a>
+  </div>  
+
+{% endblock %}

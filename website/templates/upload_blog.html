@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %} Upload Blog {% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='upload_blog.css') }}">
+
+<h1 class="page-title">Upload Blog</h1>
+
+<form method="POST" action="{{ url_for('views.upload_blog') }}" class="upload-form">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" id="title" name="title" class="form-input" required>
+
+    <label for="content" class="form-label">Content</label>
+    <textarea id="content" name="content" rows="10" class="form-textarea" required></textarea>
+
+    <button type="submit" class="btn submit-btn">Upload</button>
+</form>
+{% endblock %}

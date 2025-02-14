@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %} My Profile {% endblock %}
+
+{% block newnav %}
+<div class="navbar-right">
+  <div class="dropdown">
+    <button class="dropbtn">
+      Options <span class="arrow">&#9662;</span>
+    </button>
+    <div class="dropdown-content">
+      <a href="{{ url_for('views.edit_profile') }}">Edit Profile</a>
+      <a href="{{ url_for('auth.logout') }}">Logout</a>
+      <hr />
+      <a href="{{ url_for('views.home') }}">Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block body %}
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
+  rel="stylesheet"
+/>
+<link rel="stylesheet" href="{{ url_for('static', filename='profile.css') }}" />
+
+<div class="profile-container">
+  <!-- Profile Header Section -->
+  <div class="profile-header text-center">
+    <img src="{{ url_for('static', filename=member_image_path) }}" 
+     alt="Profile Photo" 
+     class="profile-pic">
+
+    <h2>{{ member.name }}</h2>
+    <p class="bio">
+      Batch: {{ member.batch }} | Degree: B.Tech {{ member.department }}
+    </p>
+    <p class="specialization">Specialization: {{ member.specialization }}</p>
+  </div>
+
+  <!-- Contact Information Section -->
+  <div class="contact-info">
+    <h3>Contact Information</h3>
+    <p><strong>Email:</strong> {{ member.email }}</p>
+    <p><strong>Phone:</strong> {{ member.contact }}</p>
+  </div>
+
+  <!-- Academic Achievements Section -->
+  <div class="academic-achievements">
+    <h3>Academic Achievements</h3>
+    <ul>
+      {% if member.achievements %}
+        {% for achievement in member.achievements.split(',') %}
+          <li>{{ achievement.strip() }}</li>
+        {% endfor %}
+      {% else %}
+        <li>No achievements added yet.</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- Professional Experience Section -->
+  <div class="professional-experience">
+    <h3>Professional Experience</h3>
+    <ul>
+      {% if member.experiences %}
+        {% for experience in member.experiences.split(',') %}
+          <li>{{ experience.strip() }}</li>
+        {% endfor %}
+      {% else %}
+        <li>No professional experience added yet.</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- Personal Interests Section -->
+  <div class="personal-interests">
+    <h3>Personal Interests</h3>
+    <ul>
+      {% if member.hobbies %}
+        {% for hobby in member.hobbies.split(',') %}
+          <li>{{ hobby.strip() }}</li>
+        {% endfor %}
+      {% else %}
+        <li>No hobbies added yet.</li>
+      {% endif %}
+    </ul>
+  </div>
+
+  <!-- Friends Section -->
+  <div class="friends">
+    <h3>Friends</h3>
+    <ul>
+      {% if member.friends %}
+        {% for friend in member.friends %}
+          <li>
+            <a href="{{ url_for('views.show_profile', member_id=friend.id) }}">
+              {{ friend.name }}
+            </a>
+          </li>
+        {% endfor %}
+      {% else %}
+        <li>No friends added yet.</li>
+      {% endif %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

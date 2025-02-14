@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block title %} Jobs {% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static',filename='job.css') }}">
+<h2>Job Portal</h2>
+
+<!-- Job Posting Form -->
+<form method="POST" class="job-form">
+    <input type="text" name="title" placeholder="Job Title" required>
+    <input type="text" name="company" placeholder="Company Name" required>
+    <input type="text" name="location" placeholder="Location" required>
+    <textarea name="description" placeholder="Job Description" required></textarea>
+    <button type="submit">Post Job</button>
+</form>
+
+<h3>Job Listings</h3>
+<!-- Job Listings -->
+<div class="job-listings">
+    {% for job in jobs %}
+        <div class="job-card">
+            <h4><a href="{{ url_for('features.job_detail', job_id=job.id) }}">{{ job.title }}</a></h4>
+            <p><strong>Company:</strong> {{ job.company }}</p>
+            <p><strong>Location:</strong> {{ job.location }}</p>
+            <p><strong>Posted On:</strong> {{ job.posted_on.strftime('%Y-%m-%d') }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+

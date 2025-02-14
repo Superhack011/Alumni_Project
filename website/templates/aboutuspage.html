@@ -1,0 +1,39 @@
+{% extends "layout.html" %}
+{% block title %} About Us {% endblock %}
+
+{% block body %}
+
+<link rel="stylesheet" href=" {{ url_for('static',filename='aboutus.css') }}">
+
+<header>
+    <h1>About Us - Alumni Association</h1>
+</header>
+
+<div class="container">
+    <h2>Our Mission</h2>
+    <p>Our mission is to bridge the gap between the current students and the alumni of Central University of Karnataka, providing a platform for networking, guidance, and professional growth. We aim to foster strong relationships that help students navigate their academic and career journeys, and alumni to stay connected with their alma mater.</p>
+
+    <h2>History of the Alumni Association</h2>
+    <p>Founded in [Year], the Alumni Association has grown into a thriving network of professionals across various industries. Over the years, it has supported countless students by facilitating connections with experienced alumni for mentorship, internships, and job opportunities.</p>
+
+    <h2>What We Offer</h2>
+    <p>Through this web application, students and alumni can:</p>
+    <ul>
+        <li>Create and manage profiles.</li>
+        <li>Connect with peers, mentors, and professionals.</li>
+        <li>Access resources for career development and growth.</li>
+        <li>Participate in alumni events and networking sessions.</li>
+    </ul>
+
+    <div class="team">
+        <h3>Meet the Team</h3>
+        <p>Developed by a dedicated team of students from Central University of Karnataka, our goal is to provide a seamless and effective platform for connecting the university’s past and present members.</p>
+    </div>
+
+    <div class="contact">
+        <h2>Contact Us</h2>
+        <p>For more information, feel free to reach out via email at <strong>alumni@cuk.edu.in</strong>.</p>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% block title %} Chat with {{ member.name }} {% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}" />
+
+<div class="chat-container">
+    <h2>Chat with {{ member.name }}</h2>
+
+    <div class="chat-box" id="chat-box">
+        {% for message in messages %}
+        <div class="message {% if message.sender_id == user.member.id %}sent{% else %}received{% endif %}">
+            <p><strong>{% if message.sender_id == user.member.id %}You{% else %}{{ member.name }}{% endif %}:</strong>
+                {{ message.message }}</p>
+            <small>{{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</small>
+        </div>
+        {% endfor %}
+    </div>
+
+    <form id="chat-form">
+        <input type="text" id="message" name="message" placeholder="Type your message..." required>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+<script src="{{ url_for('static', filename='chat.js') }}"></script>
+{% endblock %}
