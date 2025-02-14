@@ -1,6 +1,6 @@
 ### Creating the bluprints
 from flask import Flask, Blueprint,render_template, request, jsonify, flash, redirect, url_for
-from website import db
+from . import db
 from datetime import datetime, timedelta
 from math import ceil
 from flask_login import login_required, current_user
@@ -113,7 +113,12 @@ def edit_profile():
 def show_profile(member_id):
     alumni = Member.query.get_or_404(member_id)
     member_image = img.query.filter_by(member_id=alumni.id).first()
-    return render_template('show_member.html',user = current_user, member = alumni,features=features, member_image=member_image)
+
+    if member_image:
+        member_image_path = member_image.img  # No need to replace "static/"
+    else:
+        member_image_path = "default_profile.jpg"
+    return render_template('show_member.html',user = current_user, member = alumni,features=features, member_image_path=member_image_path)
 
 
 @views.route('/toggle_friend/<int:member_id>', methods=['POST'])

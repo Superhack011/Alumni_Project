@@ -7,11 +7,10 @@
 
 <div class="profile-container">
   <div class="profile-header text-center">
-    <img
-      src="{{ url_for('static', filename='uploads/' ~ (member.profile_picture if member.profile_picture else 'photo.jpg')) }}"
-      alt="Profile Picture"
-      class="profile-pic"
-    />
+    <img src="{{ url_for('static', filename=member_image_path) }}" 
+     alt="Profile Photo" 
+     class="profile-pic">
+     
     <h2>{{ member.name }}</h2>
     <p class="bio">Batch: {{ member.batch }} | Department: {{ member.department }}</p>
     <p class="specialization">Specialization: {{ member.specialization }}</p>
