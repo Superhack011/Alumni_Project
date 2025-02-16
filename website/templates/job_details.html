@@ -2,17 +2,17 @@
 {% block title %} Jobs/Details {% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{ url_for('static',filename='job.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='job.css') }}">
 
-<div class="job-details">
-    <h2>{{ job.title }}</h2>
-    <p><strong>Company:</strong> {{ job.company }}</p>
-    <p><strong>Location:</strong> {{ job.location }}</p>
-    <p><strong>Description:</strong> {{ job.description }}</p>
-    <p><strong>Posted On:</strong> {{ job.posted_on.strftime('%Y-%m-%d') }}</p>
+<div class="job-details-container">
+    <div class="job-details-card">
+        <h2 class="job-title">{{ job.title }}</h2>
+        <p><strong>Company:</strong> {{ job.company }}</p>
+        <p><strong>Location:</strong> {{ job.location }}</p>
+        <p class="job-description"><strong>Description:</strong> {{ job.description }}</p>
+        <p><strong>Posted On:</strong> {{ job.posted_on.strftime('%Y-%m-%d') }}</p>
 
-    <a href="{{ url_for('features.job_portal') }}" class="back-link">Back to Job Listings</a>
+        <a href="{{ url_for('features.job_portal') }}" class="back-button">← Back to Job Listings</a>
+    </div>
 </div>
-
-
 {% endblock %}

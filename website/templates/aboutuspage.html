@@ -1,39 +1,357 @@
-{% extends "layout.html" %}
-{% block title %} About Us {% endblock %}
+{% extends "layout.html" %} {% block title %} About Us {% endblock %} {% block
+body %}
+<link rel="stylesheet" href="{{ url_for('static', filename='aboutus.css') }}" />
 
-{% block body %}
-
-<link rel="stylesheet" href=" {{ url_for('static',filename='aboutus.css') }}">
-
-<header>
-    <h1>About Us - Alumni Association</h1>
-</header>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-overlay">
+    <h1>Welcome to the Alumni Association</h1>
+    <p>Connecting Alumni & Students for a Stronger Future</p>
+  </div>
+</section>
 
 <div class="container">
+  <!-- Vision Section -->
+  <section class="vision">
+    <h2>Our Vision</h2>
+    <p>
+      To build a thriving alumni network that fosters lifelong learning, career
+      growth, and mentorship, empowering students and graduates to achieve
+      success globally.
+    </p>
+    <p>
+      The Central University of Karnataka Alumni Association envisions a strong,
+      lifelong bond between our alumni and the university. Our goal is to create
+      a platform where graduates can stay connected, give back to the
+      institution, and contribute to the success of future generations. We
+      believe in fostering a sense of belonging that extends beyond graduation,
+      allowing alumni to remain an integral part of the university’s academic,
+      professional, and cultural landscape. Through mentorship, collaboration,
+      and networking, we aim to cultivate a thriving community where past,
+      present, and future students can grow together, achieve excellence, and
+      make a meaningful impact in their respective fields.
+    </p>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission">
     <h2>Our Mission</h2>
-    <p>Our mission is to bridge the gap between the current students and the alumni of Central University of Karnataka, providing a platform for networking, guidance, and professional growth. We aim to foster strong relationships that help students navigate their academic and career journeys, and alumni to stay connected with their alma mater.</p>
+    <p>
+      Our mission is to strengthen the bridge between the university and its
+      alumni by offering opportunities for engagement, career development, and
+      professional networking. We aim to facilitate meaningful interactions
+      between alumni and students, enabling knowledge-sharing, guidance, and
+      collaboration that benefit both parties. By organizing reunions,
+      networking events, and industry-driven seminars, we encourage lifelong
+      learning and career advancement. Additionally, we strive to recognize and
+      celebrate the achievements of our alumni, showcasing their success stories
+      as an inspiration for the student community. We also promote a culture of
+      giving back, where alumni contribute through mentorship programs,
+      scholarships, and philanthropic initiatives that benefit the next
+      generation of students.
+    </p>
+    <p>
+      We strive to create a dynamic community where alumni and students
+      collaborate, share knowledge, and support each other’s personal and
+      professional journeys.
+    </p>
+  </section>
 
-    <h2>History of the Alumni Association</h2>
-    <p>Founded in [Year], the Alumni Association has grown into a thriving network of professionals across various industries. Over the years, it has supported countless students by facilitating connections with experienced alumni for mentorship, internships, and job opportunities.</p>
-
-    <h2>What We Offer</h2>
-    <p>Through this web application, students and alumni can:</p>
+  <!-- Objectives Section -->
+  <section class="objectives">
+    <h2>Our Objectives</h2>
+    <p>
+      As an organization dedicated to fostering a strong relationship between
+      the university and its graduates, our primary objectives are:
+    </p>
     <ul>
-        <li>Create and manage profiles.</li>
-        <li>Connect with peers, mentors, and professionals.</li>
-        <li>Access resources for career development and growth.</li>
-        <li>Participate in alumni events and networking sessions.</li>
+      <li>
+        To establish and maintain an active, engaged, and supportive alumni
+        network that spans across different industries and geographical
+        locations.
+      </li>
+      <li>
+        To provide professional development opportunities by connecting students
+        and recent graduates with experienced alumni who can offer mentorship,
+        career advice, and industry insights.
+      </li>
+      <li>
+        To organize networking events, workshops, and seminars that help
+        students and alumni build valuable professional relationships and
+        explore career growth opportunities.
+      </li>
+      <li>
+        To encourage research collaborations, entrepreneurial ventures, and
+        innovation-driven partnerships among alumni and students.
+      </li>
+      <li>
+        To create a structured system for alumni to contribute to the
+        university, whether through financial support, knowledge-sharing, or
+        community-building activities.
+      </li>
+      <li>
+        To strengthen the reputation of the university by highlighting the
+        achievements of its alumni and their contributions to society.
+      </li>
     </ul>
+  </section>
 
-    <div class="team">
-        <h3>Meet the Team</h3>
-        <p>Developed by a dedicated team of students from Central University of Karnataka, our goal is to provide a seamless and effective platform for connecting the university’s past and present members.</p>
-    </div>
+  <!-- History Section -->
+  <section class="history">
+    <h2>Our History</h2>
+    <p>
+      The Central University of Karnataka Alumni Association was established in
+      [Year] with the vision of maintaining a lifelong connection between the
+      university and its graduates. Over the years, our association has grown
+      into a global network of professionals, researchers, entrepreneurs, and
+      thought leaders. From humble beginnings, where only a few batches of
+      graduates were involved, we have now expanded to thousands of alumni
+      spread across diverse industries and regions. Through consistent efforts,
+      we have strengthened our presence by launching mentorship programs, career
+      counseling sessions, and professional networking opportunities. Our alumni
+      have played a crucial role in shaping the university's legacy, bringing in
+      valuable industry collaborations, research contributions, and student
+      support initiatives. Today, we stand as a dynamic and influential body,
+      dedicated to serving our members and contributing to the university’s
+      growth.
+    </p>
+    <p>
+      Established in [Year], the Central University of Karnataka Alumni
+      Association has grown into a strong professional network, helping students
+      and alumni across the globe.
+    </p>
+  </section>
 
-    <div class="contact">
-        <h2>Contact Us</h2>
-        <p>For more information, feel free to reach out via email at <strong>alumni@cuk.edu.in</strong>.</p>
+  <!-- Impact Section -->
+  <section class="impact">
+    <h2>Our Impact</h2>
+    <div class="impact-grid">
+      <div class="impact-card">
+        <h3>10,000+ Alumni</h3>
+        <p>Our network spans across top industries and global institutions.</p>
+      </div>
+      <div class="impact-card">
+        <h3>500+ Mentorships</h3>
+        <p>
+          Alumni have guided students through internships, jobs, and research.
+        </p>
+      </div>
+      <div class="impact-card">
+        <h3>200+ Events</h3>
+        <p>Engaging networking events, reunions, and career workshops.</p>
+      </div>
     </div>
+  </section>
+
+  <!-- Mentor & Student Interactions -->
+  <section class="mentor-interactions">
+    <h2>Mentor & Student Interactions</h2>
+    <p>
+      One of the most valuable aspects of our Alumni Association is the
+      mentor-student interaction program. We believe that guidance from
+      experienced professionals can significantly impact a student's academic
+      journey and career trajectory. Our mentorship initiatives connect students
+      with alumni who have excelled in their respective fields, providing them
+      with industry insights, career advice, and networking opportunities. These
+      interactions take place through various channels, including personal
+      mentoring sessions, career guidance webinars, and group discussions on
+      specific industries or career paths. Additionally, we host
+      mentorship-driven projects where students can collaborate with alumni on
+      research, internships, and entrepreneurial ventures. This program not only
+      enhances students' skills and confidence but also strengthens the bond
+      between alumni and their alma mater.
+    </p>
+    <p>
+      Our alumni actively mentor students through various channels, including
+      virtual mentorship programs, one-on-one career counseling, and
+      industry-specific guidance.
+    </p>
+    <div class="interaction-grid">
+      <div class="interaction-card">
+        <h3>Career Guidance</h3>
+        <p>
+          Navigating the professional world can be challenging, especially for
+          students and recent graduates. The Central University of Karnataka
+          Alumni Association is committed to providing valuable career guidance
+          to help students make informed decisions about their future. Our
+          career guidance initiatives are designed to bridge the gap between
+          academic learning and industry expectations, ensuring that students
+          are well-prepared for the competitive job market.
+        </p>
+
+        <p>
+          Through interactive career counseling sessions, panel discussions, and
+          one-on-one mentorship programs, we connect students with experienced
+          alumni who provide insights into various career paths, industry
+          trends, and skill development strategies. Our alumni network includes
+          professionals from leading multinational corporations, startups,
+          research institutions, and government sectors, offering diverse
+          perspectives on career growth.
+        </p>
+
+        <p>
+          Additionally, we host career-oriented workshops that focus on resume
+          building, interview preparation, personal branding, and professional
+          networking. These workshops are tailored to equip students with the
+          skills and confidence they need to excel in job interviews,
+          competitive exams, and entrepreneurial ventures. Our goal is to
+          empower students with the right knowledge and connections so they can
+          achieve their career aspirations with clarity and confidence.
+        </p>
+      </div>
+      <div class="interaction-card">
+        <h3>Internship & Job Support</h3>
+        <p>
+          Securing the right internship or job opportunity is a crucial step in
+          building a successful career. At the Central University of Karnataka
+          Alumni Association, we actively support students and recent graduates
+          in finding internships and full-time job placements through our strong
+          alumni network and industry partnerships.
+        </p>
+
+        <p>
+          Our dedicated Job Portal serves as a platform where companies,
+          alumni, and recruiters can post internship and job openings
+          specifically for our students. Students can browse through various
+          opportunities, apply for positions that match their interests, and
+          receive guidance on crafting impactful applications. Alumni working in
+          reputed organizations also play a key role in providing referrals,
+          increasing students’ chances of landing coveted positions.
+        </p>
+
+        <p>
+          In addition, we organize career fairs, campus recruitment
+          drives, and alumni-led hiring events where students can directly
+          interact with recruiters and hiring managers. These events provide
+          valuable exposure, enabling students to explore different career
+          paths, understand industry expectations, and connect with potential
+          employers.
+        </p>
+
+        <p>
+          For those interested in entrepreneurship, we provide resources and
+          mentorship programs to help students launch their own startups. Our
+          alumni entrepreneurs offer practical insights, business strategies,
+          and funding opportunities to aspiring founders, ensuring they have the
+          support they need to turn their ideas into successful ventures.
+        </p>
+
+        <p>
+          Through our comprehensive Internship & Job Support Program, we aim
+          to create a seamless transition from academia to the professional
+          world, empowering students with the resources, mentorship, and
+          opportunities they need to thrive in their careers.
+        </p>
+      </div>
+      <div class="interaction-card">
+        <h3>Startup & Innovation Support</h3>
+        <p>
+          Alumni-backed incubators and funding opportunities for student
+          entrepreneurs.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alumni Success Stories -->
+  <section class="success-stories">
+    <h2>Alumni Success Stories</h2>
+    <div class="story-grid">
+      <div class="story-card">
+        <img
+          src="{{ url_for('static', filename='images/alumni1.jpg') }}"
+          alt="Alumni 1"
+        />
+        <h3>John Doe</h3>
+        <p>
+          Now working at Google, John credits the Alumni Association for helping
+          him with mentorship and career guidance.
+        </p>
+      </div>
+      <div class="story-card">
+        <img
+          src="{{ url_for('static', filename='images/alumni2.jpg') }}"
+          alt="Alumni 2"
+        />
+        <h3>Jane Smith</h3>
+        <p>
+          From student to entrepreneur, Jane launched her own tech startup with
+          support from our alumni network.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Meet the Team -->
+  <section class="team">
+    <h2>Meet the Team</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <img
+          src="{{ url_for('static', filename='images/team1.jpg') }}"
+          alt="Team Member 1"
+        />
+        <h3>Rahul Kumar</h3>
+        <p>Project Lead</p>
+      </div>
+      <div class="team-member">
+        <img
+          src="{{ url_for('static', filename='images/team2.jpg') }}"
+          alt="Team Member 2"
+        />
+        <h3>Meera Shah</h3>
+        <p>Backend Developer</p>
+      </div>
+      <div class="team-member">
+        <img
+          src="{{ url_for('static', filename='images/team3.jpg') }}"
+          alt="Team Member 3"
+        />
+        <h3>Vikram Patel</h3>
+        <p>UI/UX Designer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Engagement Programs -->
+  <section class="student-engagement">
+    <h2>Student Engagement Programs</h2>
+    <p>
+      Our Alumni Association is deeply committed to fostering engagement between
+      students and alumni through various initiatives designed to enhance
+      learning, professional development, and networking. We organize
+      student-alumni networking events, where students can interact with
+      professionals from diverse industries, gain career insights, and build
+      meaningful connections. Our annual alumni meet provides a platform for
+      knowledge-sharing and collaboration, allowing students to hear inspiring
+      stories from successful alumni. We also conduct career development
+      workshops, hackathons, and innovation challenges that provide students
+      with hands-on experience and exposure to real-world industry trends. These
+      programs not only empower students with the right skills but also help
+      them navigate their career paths with greater confidence.
+    </p>
+    <p>
+      We organize regular programs to help students connect with alumni and gain
+      industry insights.
+    </p>
+    <ul>
+      <li>Career Development Webinars</li>
+      <li>Hackathons and Coding Competitions</li>
+      <li>Annual Alumni-Student Meet</li>
+      <li>Industry Expert Panels and Talks</li>
+    </ul>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <p>For inquiries, reach out at <strong>alumni@cuk.edu.in</strong></p>
+    <div class="contact-links">
+      <a href="#"><i class="fas fa-envelope"></i> Email</a>
+      <a href="#"><i class="fas fa-phone"></i> Phone</a>
+      <a href="#"><i class="fas fa-map-marker-alt"></i> Location</a>
+    </div>
+  </section>
 </div>
 
 {% endblock %}

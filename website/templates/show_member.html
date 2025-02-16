@@ -7,86 +7,83 @@
 
 <div class="profile-container">
   <div class="profile-header text-center">
-    <img src="{{ url_for('static', filename=member_image_path) }}" 
-     alt="Profile Photo" 
-     class="profile-pic">
-     
-    <h2>{{ member.name }}</h2>
-    <p class="bio">Batch: {{ member.batch }} | Department: {{ member.department }}</p>
-    <p class="specialization">Specialization: {{ member.specialization }}</p>
+    <div class="profile-image">
+      <img src="{{ url_for('static', filename=member_image_path) }}" alt="Profile Photo" class="profile-pic">
+    </div>
+    <h2 class="member-name">{{ member.name }}</h2>
+    <p class="bio"><strong>Batch:</strong> {{ member.batch }} | <strong>Department:</strong> {{ member.department }}</p>
+    <p class="specialization"><strong>Specialization:</strong> {{ member.specialization }}</p>
   </div>
 
-  <!-- Friend Button -->
-  <div class="friend-button text-center">
+  <div class="profile-actions text-center">
     <form method="POST" action="{{ url_for('views.toggle_friend', member_id=member.id) }}">
       {% if current_user.is_authenticated and current_user.member.is_friend(member) %}
-      <button type="submit" class="btn btn-danger">
+      <button type="submit" class="btn btn-danger shadow-sm">
         <i class="bi bi-person-dash"></i> Remove Friend
       </button>
       {% else %}
-      <button type="submit" class="btn btn-success">
+      <button type="submit" class="btn btn-success shadow-sm">
         <i class="bi bi-person-plus"></i> Add Friend
       </button>
       {% endif %}
     </form>
   </div>
 
-  <!-- Contact Information -->
-  <div class="contact-info">
-    <h3>Contact Information</h3>
-    <p><strong>Email:</strong> {{ member.email }}</p>
-    <p><strong>Phone:</strong> {{ member.contact }}</p>
+  <div class="profile-details">
+    <div class="card contact-info">
+      <h3>Contact Information</h3>
+      <p><strong>Email:</strong> {{ member.email }}</p>
+      <p><strong>Phone:</strong> {{ member.contact }}</p>
+    </div>
+
+    <div class="card achievements">
+      <h3>Achievements</h3>
+      {% set achievements = member.get_list('achievements') %}
+      {% if achievements %}
+      <ul>
+        {% for achievement in achievements %}
+        <li>{{ achievement }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No achievements listed.</p>
+      {% endif %}
+    </div>
+
+    <div class="card experiences">
+      <h3>Experiences</h3>
+      {% set experiences = member.get_list('experiences') %}
+      {% if experiences %}
+      <ul>
+        {% for experience in experiences %}
+        <li>{{ experience }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No experiences listed.</p>
+      {% endif %}
+    </div>
+
+    <div class="card hobbies">
+      <h3>Hobbies</h3>
+      {% set hobbies = member.get_list('hobbies') %}
+      {% if hobbies %}
+      <ul>
+        {% for hobby in hobbies %}
+        <li>{{ hobby }}</li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No hobbies listed.</p>
+      {% endif %}
+    </div>
   </div>
 
-  <!-- Achievements Section -->
-  <div class="achievements">
-    <h3>Achievements</h3>
-    {% set achievements = member.get_list('achievements') %}
-    {% if achievements %}
-    <ul>
-      {% for achievement in achievements %}
-      <li>{{ achievement }}</li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No achievements listed.</p>
-    {% endif %}
+  {% if user.member.id != member.id %}
+  <div class="message-button text-center">
+    <a href="{{ url_for('features.chat', member_id=member.id) }}" class="btn btn-primary shadow-sm">Send Message</a>
   </div>
-
-  <!-- Experiences Section -->
-  <div class="experiences">
-    <h3>Experiences</h3>
-    {% set experiences = member.get_list('experiences') %}
-    {% if experiences %}
-    <ul>
-      {% for experience in experiences %}
-      <li>{{ experience }}</li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No experiences listed.</p>
-    {% endif %}
-  </div>
-
-  <!-- Hobbies Section -->
-  <div class="hobbies">
-    <h3>Hobbies</h3>
-    {% set hobbies = member.get_list('hobbies') %}
-    {% if hobbies %}
-    <ul>
-      {% for hobby in hobbies %}
-      <li>{{ hobby }}</li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No hobbies listed.</p>
-    {% endif %}
-  </div>
-  <div>
-    {% if user.member.id != member.id %}
-    <button><a href="{{ url_for('features.chat', member_id=member.id) }}" class="btn btn-primary">Send Message</a></button> 
-    {% endif %}
-  </div>
-
+  {% endif %}
 </div>
+
 {% endblock %}

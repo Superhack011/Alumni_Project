@@ -1,91 +1,126 @@
-{% extends "layout.html" %} {% block title %}home page{% endblock %} {% block
-body %}
+{% extends "layout.html" %}
 
-<link rel="stylesheet" href="{{ url_for('static', filename='top.css') }}" />
+{% block title %}About Us{% endblock %}
 
-<div class="container mt-5">
-  <h1 class="text-center">Welcome to the Alumni Association</h1>
-  <p class="text-center">
-    Connect with your fellow alumni and stay updated on events and activities.
-  </p>
+{% block body %}
 
-  <!-- Features Section -->
-  <div class="row mt-4">
-    <div class="col-md-4 text-center">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Networking</h5>
-          <p class="card-text">
-            Connect with alumni and build your professional network.
-          </p>
-          <a href="/alumni" class="btn btn-primary">View Alumnis</a>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="container text-center">
+    <h1 class="hero-title">Welcome to the Alumni Association</h1>
+    <p class="hero-subtitle">
+      Strengthening bonds, fostering connections, and celebrating achievements.
+    </p>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="fas fa-users feature-icon"></i>
+          <h4>Networking</h4>
+          <p>Connect with fellow alumni and expand your professional circle.</p>
+          <a href="/alumni" class="btn btn-outline-primary">View Alumni</a>
         </div>
       </div>
-    </div>
-    <div class="col-md-4 text-center">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Events</h5>
-          <p class="card-text">
-            Stay updated on alumni events, reunions, and activities.
-          </p>
-          <a href="/events" class="btn btn-primary">View Events</a>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="fas fa-calendar-alt feature-icon"></i>
+          <h4>Events</h4>
+          <p>Stay informed about alumni gatherings, reunions, and activities.</p>
+          <a href="/events" class="btn btn-outline-primary">View Events</a>
         </div>
       </div>
-    </div>
-    <div class="col-md-4 text-center">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Resources</h5>
-          <p class="card-text">
-            Access resources and opportunities for alumni.
-          </p>
-          <a href="/resources" class="btn btn-primary">Explore Resources</a>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="fas fa-book-open feature-icon"></i>
+          <h4>Resources</h4>
+          <p>Access exclusive career opportunities, mentorship, and support.</p>
+          <a href="/resources" class="btn btn-outline-primary">Explore Resources</a>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <h2>Upcoming Events</h2>
-  <ul>
-    {% for event in upcoming_events %}
-    <li>
-      <a href="/events"><strong>{{ event.title }}</strong> - {{ event.date.strftime('%d %B %Y') }}</a>
-    </li>
-    {% endfor %}
-  </ul>
-
-  <h2>Top Reviews</h2>
-  <div class="reviews-container">
-    {% for review in reviews %}
-    <div class="review-card">
-      <div class="review-header">
-        <img
-          src="{{ url_for('static', filename=review.member_image_path) }}"
-          alt="Profile Picture"
-          class="profile-pic"
-        />
-        <div class="review-info">
-          <p class="review-name">{{ review.name }}</p>
-          <p class="review-stars">
-            {% for _ in range(review.stars) %}
-                ⭐
-            {% endfor %}
-        </p>
+<!-- Alumni Stories or News -->
+<section class="news">
+  <div class="container">
+    <h2 class="section-title text-center">Alumni Success Stories</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="news-card">
+          <h5>Dr. Aditi Sharma - Leading AI Research</h5>
+          <p>
+            An inspiring journey from university days to becoming a pioneer in artificial intelligence.
+          </p>
+          <a href="/news/1" class="btn btn-secondary">Read More</a>
         </div>
       </div>
-      <p class="review-text">{{ review.review_text }}</p>
-      <p class="review-date">{{ review.created_at.strftime('%d %B %Y') }}</p>
+      <div class="col-md-6">
+        <div class="news-card">
+          <h5>Startup Spotlight: Alumni Innovation</h5>
+          <p>
+            Discover how our alumni are making an impact with their entrepreneurial ventures.
+          </p>
+          <a href="/news/2" class="btn btn-secondary">Read More</a>
+        </div>
+      </div>
     </div>
-    {% endfor %}
   </div>
+</section>
 
-  <!-- Read More Button -->
-  <div class="text-center mt-4">
-    <a href="{{ url_for('views.reviews') }}" class="btn btn-primary"
-      >Read More Reviews</a
-    >
+<!-- Upcoming Events Section -->
+<section class="events">
+  <div class="container">
+    <h2 class="section-title text-center">Upcoming Events</h2>
+    <ul class="event-list">
+      {% for event in upcoming_events %}
+      <li>
+        <a href="/events"><strong>{{ event.title }}</strong> - {{ event.date.strftime('%d %B %Y') }}</a>
+      </li>
+      {% endfor %}
+    </ul>
   </div>
+</section>
 
-  {% endblock %}
-</div>
+<!-- Reviews Section -->
+<section class="reviews">
+  <div class="container">
+    <h2 class="section-title text-center">What Our Alumni Say</h2>
+    <div class="reviews">
+      <div class="review-container">
+        {% for review in reviews %}
+        <div class="review-card">
+          <div class="review-header">
+            <img
+              src="{{ url_for('static', filename=review.member_image_path) }}"
+              alt="Profile Picture"
+              class="profile-pic"
+            />
+            <div class="review-info">
+              <p class="review-name">{{ review.name }}</p>
+              <p class="review-stars">
+                {% for _ in range(review.stars) %}
+                    ⭐
+                {% endfor %}
+              </p>
+            </div>
+          </div>
+          <p class="review-text">{{ review.review_text }}</p>
+          <p class="review-date">{{ review.created_at.strftime('%d %B %Y') }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="{{ url_for('views.reviews') }}" class="btn btn-primary">Read More Reviews</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
