@@ -10,6 +10,7 @@ from .utils import allowed_file,UPLOAD_FOLDER
 from .features import features
 import os
 from werkzeug.utils import secure_filename
+import random
 
 views = Blueprint('views',__name__)
 
@@ -18,7 +19,6 @@ views = Blueprint('views',__name__)
 ##Home Page route
 @views.route('/')
 def home():
-    # Fetch the top 4 latest reviews with profile pictures
     top_reviews = db.session.query(Reviews, img.img).join(img, Reviews.member_id == img.member_id, isouter=True)\
         .order_by(Reviews.created_at.desc()).limit(4).all()
 
@@ -33,14 +33,17 @@ def home():
             "member_image_path": member_image if member_image else "default_profile.jpg"
         })
 
-    # Fetch upcoming events (assuming Event model has 'date' field)
     upcoming_events = Events.query.filter(Events.date >= datetime.utcnow()).order_by(Events.date.asc()).limit(5).all()
 
+    story_blogs = Blog.query.filter(Blog.title.ilike("%story%")).order_by(Blog.created_at.desc()).all()
+
+    selected_stories = random.sample(story_blogs, min(len(story_blogs), 4))
     return render_template(
         'about.html', 
         user=current_user, 
         reviews=reviews_with_images, 
-        upcoming_events=upcoming_events
+        upcoming_events=upcoming_events,
+        stories = selected_stories
     )
 
 
@@ -156,6 +159,7 @@ def toggle_friend(member_id):
 
 
 @views.route('/blogs', methods=['GET', 'POST'])
+@login_required
 def blogs():
     search_query = request.args.get('search', '') 
     
@@ -171,6 +175,7 @@ def blogs():
                            blogs=all_blogs, search_query=search_query)
 
 @views.route('/blog/<int:blog_id>')
+@login_required
 def blog_details(blog_id):
     blog = Blog.query.get_or_404(blog_id)
     return render_template('blog_detail.html', user=current_user, blog=blog)
@@ -196,10 +201,10 @@ def upload_blog():
 
 ##Member page routing 
 @views.route('/members')
+@login_required
 def alumni():
     current_year = datetime.now().year
     
-    # Initialize query with batch filter for alumni (current_year - 4)
     query = Member.query.filter(Member.batch <= current_year - 4)
 
     # Get filter parameters from query string
@@ -207,7 +212,6 @@ def alumni():
     department = request.args.get('department')
     project_work = request.args.get('project_work')
 
-    # Apply additional filters if provided
     if batch_year:
         query = query.filter(Member.batch == int(batch_year))
     if department:
@@ -215,7 +219,7 @@ def alumni():
     if project_work:
         query = query.filter(Member.project_work.ilike(f'%{project_work}%'))
 
-    # Pagination
+    ### Pagination Logic
     per_page = 10
     page = request.args.get('page', default=1, type=int)
     paginated_alumni = query.paginate(page=page, per_page=per_page, error_out=False)
@@ -234,6 +238,7 @@ def alumni():
 
 
 @views.route('/events')
+@login_required
 def events_page():
     current_date = datetime.now()
 
@@ -282,7 +287,6 @@ def add_event():
 @views.route('/event/<int:event_id>')
 @login_required
 def event_details(event_id):
-    # Query the database for the event by ID
     event = Events.query.get(event_id)
     
     if not event:
@@ -291,13 +295,20 @@ def event_details(event_id):
     return render_template('eventsdetail.html', event=event,user=current_user)
 
 
+import random
+
 ##About Us page route
 @views.route('/about')
 def aboutus():
-    return render_template('aboutuspage.html', user=current_user)
+    story_blogs = Blog.query.filter(Blog.title.ilike("%story%")).order_by(Blog.created_at.desc()).all()
+
+    selected_stories = random.sample(story_blogs, min(len(story_blogs), 4))
+
+    return render_template('aboutuspage.html', user=current_user, stories=selected_stories)
 
 
 @views.route('/reviews')
+@login_required
 def reviews():
     page = request.args.get('page', 1, type=int) 
 
@@ -348,7 +359,7 @@ def reviews():
 @views.route('/load_reviews', methods=['GET'])
 def load_reviews():
     page = request.args.get('page', 1, type=int)
-    per_page = 4  # 4 reviews per row
+    per_page = 4
     reviews_paginated = Reviews.query.order_by(Reviews.created_at.desc()).paginate(page=page, per_page=per_page)
 
     reviews_data = []
@@ -367,6 +378,7 @@ def load_reviews():
     return jsonify({"reviews": reviews_data})
 
 @views.route('/resources', methods=['GET'])
+@login_required
 def resources_page():
     page = request.args.get('page', 1, type=int)
     items_per_page = 10
@@ -421,6 +433,7 @@ def project_details(project_id):
 
 
 @views.route('/alumni', methods=['GET'])
+@login_required
 def alumnis():
     batch = request.args.get('batch', '')
     department = request.args.get('department', '')

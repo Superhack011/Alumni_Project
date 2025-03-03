@@ -53,20 +53,18 @@
     <div class="row">
       <div class="col-md-6">
         <div class="news-card">
-          <h5>Dr. Aditi Sharma - Leading AI Research</h5>
-          <p>
-            An inspiring journey from university days to becoming a pioneer in artificial intelligence.
-          </p>
-          <a href="/news/1" class="btn btn-secondary">Read More</a>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="news-card">
-          <h5>Startup Spotlight: Alumni Innovation</h5>
-          <p>
-            Discover how our alumni are making an impact with their entrepreneurial ventures.
-          </p>
-          <a href="/news/2" class="btn btn-secondary">Read More</a>
+          {% for story in stories %}
+          <div class="story-card">
+            <img
+            src="{{ url_for('static', filename='images/alumni1.jpg') }}"
+            alt="Alumni 1"
+            />
+              <h3>{{ story.title }}</h3>
+              <p>{{ story.content[:150] }}...</p> <!-- Show first 150 characters -->
+              <p><strong>By:</strong> {{ story.author.name }}</p>
+              <a href="{{ url_for('views.blog_details', blog_id=story.id) }}" class="read-more">Read Full Story</a>
+          </div>
+          {% endfor %}
         </div>
       </div>
     </div>

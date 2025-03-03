@@ -254,7 +254,7 @@ body %}
   </section>
 
   <!-- Alumni Success Stories -->
-  <section class="success-stories">
+  <!-- <section class="success-stories">
     <h2>Alumni Success Stories</h2>
     <div class="story-grid">
       <div class="story-card">
@@ -280,7 +280,33 @@ body %}
         </p>
       </div>
     </div>
-  </section>
+  </section> -->
+
+
+
+
+  <section class="success-stories">
+    <h2>Alumni Success Stories</h2>
+    <div class="story-grid">
+        {% for story in stories %}
+        <div class="story-card">
+          <img
+          src="{{ url_for('static', filename='images/alumni1.jpg') }}"
+          alt="Alumni 1"
+          />
+            <h3>{{ story.title }}</h3>
+            <p>{{ story.content[:150] }}...</p> <!-- Show first 150 characters -->
+            <p><strong>By:</strong> {{ story.author.name }}</p>
+            <a href="{{ url_for('views.blog_details', blog_id=story.id) }}" class="read-more">Read Full Story</a>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+
+
 
   <!-- Meet the Team -->
   <section class="team">
