@@ -62,11 +62,6 @@ def profile():
         'profile.html', user=current_user, member=user_member, member_image_path=member_image_path
     )
 
-
-if not os.path.exists(UPLOAD_FOLDER):
-    os.makedirs(UPLOAD_FOLDER)
-
-
 @views.route('/editprofile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -293,9 +288,6 @@ def event_details(event_id):
         return "Event not found", 404
 
     return render_template('eventsdetail.html', event=event,user=current_user)
-
-
-import random
 
 ##About Us page route
 @views.route('/about')
