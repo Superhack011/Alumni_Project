@@ -21,14 +21,14 @@ def create_app():
 
 
     with app.app_context(): ###Insure that path exists
-        if not path.exists(app.instance_path): ##if not exists make it
+        if not path.exists(app.instance_path): 
             path.makedirs(app.instance_path)
 
     db.init_app(app)
     migrate.init_app(app, db)
     socketio.init_app(app)
 
-    from .models import User, Member, Reviews, Project, Events, Blog
+    from .models import User
     create_database(app)
 
     login_manager = LoginManager()

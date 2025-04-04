@@ -13,16 +13,13 @@
     />
     <title>{% block title %}{% endblock %}</title>
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='top.css') }}" />
 
-    <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
     />
 
-    <!-- Font Awesome (for icons) -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -30,10 +27,11 @@
   </head>
 
   <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg sticky-top">
       <div class="container">
-        <a class="navbar-brand" href="/"><i class="fas fa-users"></i> Alumni Association</a>
+        <a class="navbar-brand" href="/"
+          ><i class="fas fa-users"></i> Alumni Association</a
+        >
         <button
           class="navbar-toggler"
           type="button"
@@ -80,41 +78,48 @@
       </div>
     </nav>
 
-    <!-- Header Section -->
     <header class="header">
-      <img
-        src="{{ url_for('static', filename='images/banner.jpg') }}"
-        alt="Alumni Association Banner"
-        class="banner-image"
-      />
+      <div class="slider">
+        <div class="slider-arrow left-arrow" onclick="prevSlide()">
+          <i class="bi bi-chevron-left"><span>&lt;</span></i>
+        </div>
+        <img
+          id="slider-image"
+          src="{{ url_for('static', filename='images/banner1.jpg') }}"
+          alt="Alumni Association Banner"
+          class="banner-image"
+        />
+        <div class="slider-arrow right-arrow" onclick="nextSlide()">
+          <i class="bi bi-chevron-right"><span>&gt;</span></i>
+        </div>
+      </div>
     </header>
 
-    <!-- Flash Messages -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
     messages %}
-    <div class="container flash-container">
+    <div class="flash-container">
       {% for category, message in messages %}
-      <div
-        class="alert alert-{{ 'danger' if category == 'error' else 'success' }} flash-message"
-      >
-        <i
-          class="fas {{ 'fa-exclamation-circle' if category == 'error' else 'fa-check-circle' }}"
-        ></i>
-        <span>{{ message }}</span>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-        ></button>
+      <div class="flash-message flash-{{ category }}">
+        <div class="flash-icon">
+          <i
+            class="fas {{ 'fa-exclamation-circle' if category == 'error' else 'fa-check-circle' }}"
+          ></i>
+        </div>
+        <div class="flash-content">
+          <span>{{ message }}</span>
+        </div>
+        <button type="button" class="flash-close" onclick="closeFlash(this)">
+          ✖
+        </button>
       </div>
       {% endfor %}
     </div>
     {% endif %} {% endwith %}
 
-    <!-- Main Content -->
     <main class="container my-4">{% block body %}{% endblock %}</main>
 
-    <!-- Footer -->
     <footer class="footer">
       <p>&copy; 2024 Alumni Association. All Rights Reserved.</p>
       <div class="footer-links">
@@ -130,7 +135,6 @@
       </div>
     </footer>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

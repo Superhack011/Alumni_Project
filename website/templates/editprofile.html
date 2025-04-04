@@ -1,15 +1,16 @@
-{% extends "layout.html" %}
-{% block title %}Edit Profile{% endblock %}
-
-{% block body %}
-<link rel="stylesheet" href="{{ url_for('static', filename='page.css') }}" />
+{% extends "layout.html" %} {% block title %}Edit Profile{% endblock %} {% block
+body %}
 <link
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
   rel="stylesheet"
+  href="{{ url_for('static', filename='edit_profile.css') }}"
+/>
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
 />
 
 <main class="container py-5">
-  <div class="card shadow-lg p-4">
+  <div class="card shadow-lg p-4 profile-card">
     <h2 class="text-center text-primary">Edit Profile</h2>
 
     <!-- Profile Picture Upload -->
@@ -19,77 +20,136 @@
         <img
           src="{{ url_for('static', filename=member_image.img) }}"
           alt="Profile Picture"
-          class="rounded-circle shadow"
-          width="150"
+          class="rounded-circle shadow profile-img"
         />
         {% else %}
         <img
           src="{{ url_for('static', filename='default_profile.jpg') }}"
           alt="Default Profile Picture"
-          class="rounded-circle shadow"
-          width="150"
+          class="rounded-circle shadow profile-img"
         />
         {% endif %}
       </div>
-
-      <form action="/editprofile" enctype="multipart/form-data" method="POST" class="mt-3">
-        <div class="form-group">
-          <input type="file" name="pic" class="form-control-file" />
-          <button type="submit" class="btn btn-primary mt-2">Upload Profile Picture</button>
-        </div>
-      </form>
     </div>
 
-    <!-- Edit Profile Form -->
-    <form method="POST" class="mt-4">
+    <form
+      action="/editprofile"
+      enctype="multipart/form-data"
+      method="POST"
+      class="mt-4"
+    >
+      <div class="form-group text-center">
+        <label class="upload-btn">
+          <input
+            type="file"
+            name="pic"
+            hidden
+            onchange="displayFileName(this)"
+          />
+          <i class="bi bi-upload"></i> Upload New Picture
+        </label>
+        <span id="file-name" class="text-muted"></span>
+      </div>
+
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" class="form-control" value="{{ member.name }}" required />
+          <label for="name"><i class="bi bi-person"></i> Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="form-control rounded-input"
+            value="{{ member.name }}"
+            required
+          />
         </div>
 
         <div class="col-md-6 form-group">
-          <label for="batch">Batch</label>
-          <input type="text" id="batch" name="batch" class="form-control" value="{{ member.batch }}" required />
+          <label for="batch"><i class="bi bi-calendar"></i> Batch</label>
+          <input
+            type="text"
+            id="batch"
+            name="batch"
+            class="form-control rounded-input"
+            value="{{ member.batch }}"
+            required
+          />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="specialization">Specialization</label>
-          <input type="text" id="specialization" name="specialization" class="form-control" value="{{ member.specialization }}" required />
+          <label for="specialization"
+            ><i class="bi bi-tools"></i> Specialization</label
+          >
+          <input
+            type="text"
+            id="specialization"
+            name="specialization"
+            class="form-control rounded-input"
+            value="{{ member.specialization }}"
+            required
+          />
         </div>
 
         <div class="col-md-6 form-group">
-          <label for="department">Department</label>
-          <input type="text" id="department" name="department" class="form-control" value="{{ member.department }}" required />
+          <label for="department"
+            ><i class="bi bi-building"></i> Department</label
+          >
+          <input
+            type="text"
+            id="department"
+            name="department"
+            class="form-control rounded-input"
+            value="{{ member.department }}"
+            required
+          />
         </div>
       </div>
 
       <div class="row">
         <div class="col-md-6 form-group">
-          <label for="contact">Contact</label>
-          <input type="text" id="contact" name="contact" class="form-control" value="{{ member.contact }}" required />
+          <label for="contact"><i class="bi bi-phone"></i> Contact</label>
+          <input
+            type="text"
+            id="contact"
+            name="contact"
+            class="form-control rounded-input"
+            value="{{ member.contact }}"
+            required
+          />
         </div>
 
         <div class="col-md-6 form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" class="form-control" value="{{ member.email }}" required />
+          <label for="email"><i class="bi bi-envelope"></i> Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control rounded-input"
+            value="{{ member.email }}"
+            required
+          />
         </div>
       </div>
 
-      <button type="submit" class="btn btn-success btn-block mt-4">
+      <button type="submit" class="btn btn-success btn-block mt-4 save-btn">
         <i class="bi bi-save"></i> Save Changes
       </button>
     </form>
 
-    <!-- Section for Adding Reviews and Projects -->
     <div class="d-flex justify-content-between mt-4">
-      <a href="{{ url_for('views.reviews') }}" class="btn btn-outline-primary">
+      <a
+        href="{{ url_for('views.reviews') }}"
+        class="btn btn-outline-primary action-btn"
+      >
         <i class="bi bi-pencil-square"></i> Add Review
       </a>
 
-      <a href="{{ url_for('views.add_project') }}" class="btn btn-outline-secondary">
+      <a
+        href="{{ url_for('views.add_project') }}"
+        class="btn btn-outline-secondary action-btn"
+      >
         <i class="bi bi-folder-plus"></i> Add Project
       </a>
     </div>
@@ -100,23 +160,56 @@
 
     <form method="POST" action="{{ url_for('views.add_event') }}">
       <div class="form-group">
-        <label for="event_name">Event Name</label>
-        <input type="text" id="event_name" name="event_name" class="form-control" required placeholder="Enter Event Name" />
+        <label for="event_name"
+          ><i class="bi bi-calendar-event"></i> Event Name</label
+        >
+        <input
+          type="text"
+          id="event_name"
+          name="event_name"
+          class="form-control rounded-input"
+          required
+          placeholder="Enter Event Name"
+        />
       </div>
 
       <div class="form-group">
-        <label for="event_date">Event Date</label>
-        <input type="date" id="event_date" name="event_date" class="form-control" required />
+        <label for="event_date"
+          ><i class="bi bi-calendar"></i> Event Date</label
+        >
+        <input
+          type="date"
+          id="event_date"
+          name="event_date"
+          class="form-control rounded-input"
+          required
+        />
       </div>
 
       <div class="form-group">
-        <label for="event_description">Event Description</label>
-        <textarea id="event_description" name="event_description" class="form-control" placeholder="Enter Event Description"></textarea>
+        <label for="event_description"
+          ><i class="bi bi-file-text"></i> Event Description</label
+        >
+        <textarea
+          id="event_description"
+          name="event_description"
+          class="form-control rounded-input"
+          placeholder="Enter Event Description"
+        ></textarea>
       </div>
 
       <div class="form-group">
-        <label for="event_location">Event Location</label>
-        <input type="text" id="event_location" name="event_location" class="form-control" required placeholder="Enter Event Location" />
+        <label for="event_location"
+          ><i class="bi bi-geo-alt"></i> Event Location</label
+        >
+        <input
+          type="text"
+          id="event_location"
+          name="event_location"
+          class="form-control rounded-input"
+          required
+          placeholder="Enter Event Location"
+        />
       </div>
 
       <button type="submit" class="btn btn-success btn-block mt-3">
@@ -125,5 +218,14 @@
     </form>
   </div>
 </main>
+
+<script>
+  function displayFileName(input) {
+    if (input.files.length > 0) {
+      document.getElementById("file-name").textContent =
+        "Selected: " + input.files[0].name;
+    }
+  }
+</script>
 
 {% endblock %}

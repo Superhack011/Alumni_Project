@@ -1,119 +1,163 @@
-/* General Styling */
-body {
-    background-color: #f8f9fa;
-    font-family: "Poppins", sans-serif;
-    margin: 0;
-    padding: 0;
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(to right, #e3f2fd, #ffffff);
 }
 
-/* Main Card Container */
-.card {
-    max-width: 700px;
-    margin: auto;
-    background: #fff;
+.login-content {
+    display: flex;
+    width: 800px;
+    height: 500px; 
+    border: 2px solid #007bff;
     border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Header Styling */
-h2, h3 {
-    font-weight: 600;
+.login-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background: #f0f0f0;
 }
 
-/* Profile Picture */
-.profile-section {
-    text-align: center;
-}
-
-.profile-pic img {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: 4px solid #007bff;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+.login-image img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
-/* Form Styling */
-.form-group {
-    margin-bottom: 15px;
+.login-form-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
 }
 
-label {
-    font-weight: 500;
+.login-form {
+    width: 100%;
+    max-width: 350px;
+    text-align: center;
+    padding: 1.5rem;
 }
 
-input, textarea {
+.login-form h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.form-subtitle {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.form-divider {
+    border: 0;
+    height: 1px;
+    background: #ccc;
+    margin: 1.2rem 0;
+}
+
+.input-group {
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.input-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #444;
+}
+
+.input-group input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
     transition: 0.3s;
+    background: #f9f9f9;
 }
 
-input:focus, textarea:focus {
+.input-group input:focus {
     border-color: #007bff;
     outline: none;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+    background: #fff;
 }
 
-/* Buttons */
-.btn {
-    padding: 10px 15px;
-    font-size: 16px;
-    border-radius: 6px;
+
+.form-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+}
+
+.forgot-password {
+    color: #007bff;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
     transition: 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
-.btn-primary {
-    background-color: #007bff;
-    border: none;
+.btn-login:hover {
+    background: linear-gradient(to right, #0056b3, #004080);
 }
 
-.btn-primary:hover {
-    background-color: #0056b3;
+.signup-text {
+    margin-top: 1rem;
+    font-size: 0.9rem;
 }
 
-.btn-success {
-    background-color: #28a745;
-    border: none;
+.signup-text a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-.btn-success:hover {
-    background-color: #218838;
+.signup-text a:hover {
+    text-decoration: underline;
 }
 
-.btn-outline-primary, .btn-outline-secondary {
-    width: 48%;
-    text-align: center;
-    font-size: 15px;
-}
-
-.btn-outline-primary:hover, .btn-outline-secondary:hover {
-    color: #fff;
-}
-
-/* Event Section */
-hr {
-    border: 1px solid #ddd;
-    margin: 25px 0;
-}
-
-textarea {
-    height: 100px;
-}
-
-/* Responsive Design */
 @media (max-width: 768px) {
-    .card {
+    .login-content {
+        flex-direction: column;
         width: 90%;
-        padding: 20px;
+        height: auto;
     }
 
-    .btn-outline-primary, .btn-outline-secondary {
-        width: 100%;
-        margin-bottom: 10px;
+    .login-image {
+        height: 250px;
+        border-bottom: 2px solid #007bff;
+    }
+
+    .login-form-container {
+        padding: 1.5rem;
     }
 }

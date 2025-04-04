@@ -1,3 +1,24 @@
+h1.resource-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    color: #007bff;
+    margin-top: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+}
+
+h2 i {
+    margin-right: 10px;
+    color: #0056b3;
+}
+
 .project-card {
     border: 1px solid #e0e0e0;
     border-radius: 10px;
@@ -40,4 +61,54 @@
 .btn-success:hover {
     background-color: #218838;
     border-color: #1e7e34;
+}
+
+.resource-page {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 2rem;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.resource-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.resource-details {
+    text-align: left;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.resource-details p {
+    margin: 0.8rem 0;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.resource-details i {
+    color: #007bff;
+    margin-right: 8px;
+}
+
+.back-button {
+    display: inline-block;
+    margin-top: 2rem;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background: #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.back-button:hover {
+    background: #0056b3;
 }

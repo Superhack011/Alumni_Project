@@ -1,65 +1,68 @@
 {% extends "layout.html" %}
 
-{% block title %}
-All Events
-{% endblock %}
+{% block title %}All Events{% endblock %}
 
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='events.css') }}" >
+
 <div class="events-page">
-  
-    <!-- Upcoming Events Section -->
-    <section class="centered-heading" id="upcoming">
-      <h2 class="centered-heading">Upcoming Events</h2>
-      <div class="events-container">
-        {% if upcoming_events %} {% for event in upcoming_events %}
-        <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
-        <div class="event-card">
-          <h3>{{ event.title }}</h3>
-          <p><strong>Date:</strong> {{ event.date }}</p>
-          <p>{{ event.description }}</p>
+
+    <section class="events-section" id="upcoming">
+        <h2 class="section-title">Upcoming Events</h2>
+        <div class="events-container">
+            {% if upcoming_events %}
+                {% for event in upcoming_events %}
+                    <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
+                        <div class="event-card">
+                            <h3 class="event-title">{{ event.title }}</h3>
+                            <p class="event-date"><i class="fas fa-calendar-alt"></i> {{ event.date.strftime('%d %B %Y') }}</p>
+                            <p class="event-desc">{{ event.description[:100] }}...</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="no-events">No upcoming events at the moment.</p>
+            {% endif %}
         </div>
-        {% endfor %} {% else %}
-        <p>No upcoming events at the moment.</p>
-        {% endif %}
-      </div>
     </section>
-  
-    <!-- Ongoing Events Section -->
-    <br /><br />
-    <section class="centered-heading" id="ongoing">
-      <h2 class="centered-heading">Ongoing Events</h2>
-      <div class="events-container">
-        {% if ongoing_events %} {% for event in ongoing_events %}
-        <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
-        <div class="event-card">
-          <h3>{{ event.title }}</h3>
-          <p><strong>Date:</strong> {{ event.date }}</p>
-          <p>{{ event.description }}</p>
+
+    <section class="events-section" id="ongoing">
+        <h2 class="section-title">Ongoing Events</h2>
+        <div class="events-container">
+            {% if ongoing_events %}
+                {% for event in ongoing_events %}
+                    <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
+                        <div class="event-card">
+                            <h3 class="event-title">{{ event.title }}</h3>
+                            <p class="event-date"><i class="fas fa-calendar-alt"></i> {{ event.date.strftime('%d %B %Y') }}</p>
+                            <p class="event-desc">{{ event.description[:100] }}...</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="no-events">No ongoing events at the moment.</p>
+            {% endif %}
         </div>
-        {% endfor %} {% else %}
-        <p>No ongoing events at the moment.</p>
-        {% endif %}
-      </div>
     </section>
-  
-     <!-- Past Events Section -->
-      <br><br>
-     <section class="centered-heading" id="pastevents">
-      <h2 class="centered-heading">Past Events</h2>
-      <div class="events-container">
-        {% if past_events %} {% for event in past_events %}
-        <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
-        <div class="event-card">
-          <h3>{{ event.title }}</h3>
-          <p><strong>Date:</strong> {{ event.date }}</p>
-          <p>{{ event.description }}</p>
+
+    <section class="events-section" id="pastevents">
+        <h2 class="section-title">Past Events</h2>
+        <div class="events-container">
+            {% if past_events %}
+                {% for event in past_events %}
+                    <a href="{{ url_for('views.event_details', event_id=event.id) }}" class="event-card-link">
+                        <div class="event-card">
+                            <h3 class="event-title">{{ event.title }}</h3>
+                            <p class="event-date"><i class="fas fa-calendar-alt"></i> {{ event.date.strftime('%d %B %Y') }}</p>
+                            <p class="event-desc">{{ event.description[:100] }}...</p>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p class="no-events">No past events at the moment.</p>
+            {% endif %}
         </div>
-        {% endfor %} {% else %}
-        <p>No Past events at the moment.</p>
-        {% endif %}
-      </div>
     </section>
-  
-  </div>
+
+</div>
 {% endblock %}

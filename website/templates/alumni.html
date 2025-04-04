@@ -7,7 +7,6 @@
 
 <h1>Alumni Leaderboard</h1>
 
-<!-- Search form -->
 <form id="search-form" method="GET" action="{{ url_for('views.alumnis') }}">
     <input type="text" name="batch" placeholder="Search by Batch Year" value="{{ request.args.get('batch', '') }}">
     <input type="text" name="department" placeholder="Search by Department" value="{{ request.args.get('department', '') }}">
@@ -15,7 +14,6 @@
     <button type="submit">Search</button>
 </form>
 
-<!-- Table to display alumni -->
 <table>
     <thead>
         <tr>
@@ -37,7 +35,6 @@
     </tbody>
 </table>
 
-<!-- Pagination controls -->
 <div class="pagination">
     {% if current_page > 1 %}
     <a href="{{ url_for('views.alumnis', page=current_page - 1, batch=request.args.get('batch'), department=request.args.get('department'), project_work=request.args.get('project_work')) }}" class="prev-button">Previous</a>

@@ -1,48 +1,57 @@
 {% extends "layout.html" %}
-{% block title %} 
-Sign up 
-{% endblock %}
+
+{% block title %} Sign Up {% endblock %}
 
 {% block body %}
-<link rel="stylesheet" href="{{ url_for('static', filename='page.css') }}">
 
-<main>
-    <form method="post">
-        <h3 align="center"> SIGN UP </h3>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text", id="name" name="name" class="form-group">
+<link rel="stylesheet" href="{{ url_for('static', filename='signup_page.css') }}">
+
+<div class="signup-container">
+    <form method="post" class="signup-form">
+        <h2>Create an Account</h2>
+        <p class="form-subtitle">Join us and stay connected</p>
+
+        <div class="input-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
         </div>
-        <div class="form-group">
+
+        <div class="input-group">
             <label for="department">Department</label>
-            <input type="text", id="dept" name="dept" class="form-group">
+            <input type="text" id="dept" name="dept" placeholder="Enter your department" required>
         </div>
-        <div class="form-group">
-            <label for="specialization">specialization</label>
-            <input type="text", id="specialization" name="specialization" class="form-group">
+
+        <div class="input-group">
+            <label for="specialization">Specialization</label>
+            <input type="text" id="specialization" name="specialization" placeholder="Enter your specialization" required>
         </div>
-        <div class="form-group">
+
+        <div class="input-group">
             <label for="batch">Batch</label>
-            <input type="text", id="Batch" name="Batch" class="form-group">
+            <input type="text" id="Batch" name="Batch" placeholder="Enter your batch year" required>
         </div>
-        <div class="form-group">
+
+        <div class="input-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" class="form-control">      
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
         </div>
-        <div class="form-group">
+
+        <div class="input-group">
             <label for="password1">Password</label>
-            <input type="password" id="password1" name="password1" class="form-control">      
+            <input type="password" id="password1" name="password1" placeholder="Create a password" required>
         </div>
-        <div class="form-group">
+
+        <div class="input-group">
             <label for="password2">Confirm Password</label>
-            <input type="password" id="password2" name="password2" class="form-control">      
+            <input type="password" id="password2" name="password2" placeholder="Confirm your password" required>
         </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    <p>Already have an account <a href="/login">Login here</a></p>
 
+        <button type="submit" class="btn-signup">Sign Up</button>
+
+        <p class="login-text">
+            Already have an account? <a href="/login">Login here</a>
+        </p>
     </form>
-
-</main>
-
+</div>
 
 {% endblock %}

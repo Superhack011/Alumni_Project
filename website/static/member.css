@@ -14,7 +14,7 @@ h1 {
 
 #search-form {
     display: flex;
-    flex-wrap: wrap; /* Ensures it adjusts for smaller screens */
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     margin-bottom: 20px;
@@ -23,7 +23,7 @@ h1 {
 
 #search-form input {
     flex: 1;
-    max-width: 200px; /* Restricts input size */
+    max-width: 200px;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -48,7 +48,7 @@ table {
     max-width: 1200px;
     margin: 20px auto;
     border-collapse: collapse;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 th, td {
@@ -76,9 +76,9 @@ table tr:nth-child(even) {
 .pagination {
     margin-top: 20px;
     display: flex;
-    justify-content: center; /* Centers the pagination elements */
-    align-items: center; /* Vertically aligns the text */
-    gap: 10px; /* Adds space between the pagination elements */
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
 }
 
 .pagination a {
@@ -90,7 +90,7 @@ table tr:nth-child(even) {
     border-radius: 4px;
     transition: background-color 0.3s, color 0.3s;
     display: inline-block;
-    text-align: center; /* Ensures the text inside is centered */
+    text-align: center;
 }
 
 .pagination a.active {

@@ -1,8 +1,7 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for,jsonify
-from flask_login import login_user, login_required, logout_user, current_user
+from flask_login import login_required, current_user
 from . import db
-from .models import Member,User,Job, ChatMessage
-import json
+from .models import Member,Job, ChatMessage, img
 from datetime import datetime
 
 features = Blueprint('features', __name__)
@@ -39,12 +38,18 @@ def job_detail(job_id):
 @login_required
 def chat(member_id):
     member = Member.query.get_or_404(member_id)
+    member_pic = img.query.filter_by(member_id=member.id).first()
+    
+    if member_pic:
+        member_image_path = member_pic.img 
+    else:
+        member_image_path = "default_profile.jpg"
 
     if request.method == 'POST':
         message = request.form.get('message')
         if message:
             new_message = ChatMessage(
-                sender_id=current_user.member.id,  # Fetch from linked Member
+                sender_id=current_user.member.id,
                 receiver_id=member_id,
                 message=message,
                 timestamp=datetime.utcnow()
@@ -53,11 +58,11 @@ def chat(member_id):
             db.session.commit()
         return jsonify({"status": "success"})
 
-    # Fetch messages between the two users
+    ##Fetch messages between the two users
     messages = ChatMessage.query.filter(
     ((ChatMessage.sender_id == current_user.member.id) & (ChatMessage.receiver_id == member_id)) |
     ((ChatMessage.sender_id == member_id) & (ChatMessage.receiver_id == current_user.member.id))
     ).order_by(ChatMessage.timestamp.asc()).all()
 
 
-    return render_template('chat.html', user=current_user, member=member, messages=messages)
+    return render_template('chat.html', user=current_user, member=member, messages=messages, member_image = member_image_path)

@@ -3,8 +3,8 @@
 {% block title %}About Us{% endblock %}
 
 {% block body %}
+<link rel="stylesheet" href="{{ url_for('static',filename='about.css') }}" >
 
-<!-- Hero Section -->
 <section class="hero">
   <div class="container text-center">
     <h1 class="hero-title">Welcome to the Alumni Association</h1>
@@ -14,7 +14,6 @@
   </div>
 </section>
 
-<!-- Features Section -->
 <section class="features">
   <div class="container">
     <div class="row text-center">
@@ -46,7 +45,6 @@
   </div>
 </section>
 
-<!-- Alumni Stories or News -->
 <section class="news">
   <div class="container">
     <h2 class="section-title text-center">Alumni Success Stories</h2>
@@ -71,7 +69,6 @@
   </div>
 </section>
 
-<!-- Upcoming Events Section -->
 <section class="events">
   <div class="container">
     <h2 class="section-title text-center">Upcoming Events</h2>
@@ -85,7 +82,6 @@
   </div>
 </section>
 
-<!-- Reviews Section -->
 <section class="reviews">
   <div class="container">
     <h2 class="section-title text-center">What Our Alumni Say</h2>

@@ -8,53 +8,39 @@ body %}
 <div class="container">
   <h1 class="page-title">User Reviews</h1>
 
-  <!-- Add Review Section -->
   <div class="card add-review-card">
     <h3>Share Your Experience</h3>
     <p>Help others by sharing your thoughts!</p>
     <a href="#add-review-form" class="btn add-review-btn">Write a Review</a>
   </div>
 
-  <!-- Reviews Grid -->
   <div id="reviews-container" class="reviews-container">
-    <!-- Reviews will be loaded dynamically -->
   </div>
 
-  <!-- Load More Button -->
   <div class="load-more-container">
     <button id="load-more-btn" class="btn load-more-btn">Load More</button>
   </div>
 </div>
 
-<!-- Review Submission Form -->
-<form
-  id="add-review-form"
-  action="{{ url_for('views.reviews') }}"
-  method="POST"
-  class="add-review-form"
->
+
+<form id="add-review-form" action="{{ url_for('views.reviews') }}" method="POST" class="add-review-form">
   <input type="hidden" name="member_id" value="1" />
-  <div class="form-group">
-    <label for="stars">Stars (1-5):</label>
-    <input
-      type="number"
-      name="stars"
-      class="form-control"
-      min="1"
-      max="5"
-      required
-    />
+
+  <div class="form-group rating-group">
+      <label for="stars" class="form-label">Rating:</label>
+      <div class="star-rating">
+          <input type="radio" name="stars" value="5" id="star5"><label for="star5">★</label>
+          <input type="radio" name="stars" value="4" id="star4"><label for="star4">★</label>
+          <input type="radio" name="stars" value="3" id="star3"><label for="star3">★</label>
+          <input type="radio" name="stars" value="2" id="star2"><label for="star2">★</label>
+          <input type="radio" name="stars" value="1" id="star1" required><label for="star1">★</label>
+      </div>
   </div>
   <div class="form-group">
-    <label for="review_text">Review:</label>
-    <textarea
-      name="review_text"
-      class="form-control"
-      rows="3"
-      placeholder="Write your review here..."
-      required
-    ></textarea>
+      <label for="review_text" class="form-label">Your Review:</label>
+      <textarea name="review_text" class="form-control" rows="4" placeholder="Write your review here..." required></textarea>
   </div>
+
   <button type="submit" class="btn submit-review-btn">Submit Review</button>
 </form>
 

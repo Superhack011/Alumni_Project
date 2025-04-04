@@ -1,11 +1,10 @@
 ### Creating the bluprints
-from flask import Flask, Blueprint,render_template, request, jsonify, flash, redirect, url_for
+from flask import Blueprint,render_template, request, jsonify, flash, redirect, url_for
 from . import db
 from datetime import datetime, timedelta
 from math import ceil
 from flask_login import login_required, current_user
-from .models import Blog,User, Events, Reviews, Project, Member,Alumni,img
-import json
+from .models import Blog, Events, Reviews, Project, Member,Alumni,img
 from .utils import allowed_file,UPLOAD_FOLDER
 from .features import features
 import os
@@ -299,7 +298,7 @@ def aboutus():
     return render_template('aboutuspage.html', user=current_user, stories=selected_stories)
 
 
-@views.route('/reviews')
+@views.route('/reviews',methods=['GET','POST'])
 @login_required
 def reviews():
     page = request.args.get('page', 1, type=int) 
@@ -316,7 +315,6 @@ def reviews():
             flash("Both stars and review text are required!", "danger")
             return redirect(url_for('views.reviews'))
 
-        # Add the new review
         new_review = Reviews(
             stars=int(stars),
             review_text=review_text,

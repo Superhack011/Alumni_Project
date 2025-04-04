@@ -5,33 +5,35 @@
 {% block body %}
 <link rel="stylesheet" href="{{ url_for('static', filename='blog.css') }}">
 
-<h1 class="page-title">Blogs</h1>
+<div class="blog-page-container">
+    <h1 class="page-title">Explore Blogs</h1>
 
-<!-- Search form -->
-<form method="GET" action="{{ url_for('views.blogs') }}" id="search-form" class="search-form">
-    <input type="text" name="search" placeholder="Search blogs by author or title" value="{{ search_query }}" class="search-input">
-    <button type="submit" class="search-btn">Search</button>
-</form>
+    <!-- Search Form -->
+    <form method="GET" action="{{ url_for('views.blogs') }}" id="search-form" class="search-form">
+        <input type="text" name="search" placeholder="Search blogs by author or title" value="{{ search_query }}" class="search-input">
+        <button type="submit" class="search-btn">🔍</button>
+    </form>
 
-<!-- Card for uploading a blog -->
-<div class="card upload-card">
-    <h3>Want to share something? Upload a blog!</h3>
-    <a href="{{ url_for('views.upload_blog') }}" class="btn upload-btn">Upload Blog</a>
-</div>
+    <!-- Upload Blog Card -->
+    <div class="upload-card">
+        <h3>Have an interesting story? Share it with us!</h3>
+        <a href="{{ url_for('views.upload_blog') }}" class="btn upload-btn">Upload Blog</a>
+    </div>
 
-<!-- Display blog cards -->
-<div class="blogs-container">
-    {% if blogs %}
-        {% for blog in blogs %}
-        <div class="card blog-card">
-            <h3 class="blog-title">{{ blog.title }}</h3>
-            <p class="blog-meta">By <strong>{{ blog.author.name }}</strong> on {{ blog.created_at.strftime('%d %B %Y') }}</p>
-            <a href="{{ url_for('views.blog_details', blog_id=blog.id) }}" class="btn read-more-btn">Read More</a>
-        </div>
-        {% endfor %}
-    {% else %}
-        <p class="no-blogs">No blogs found matching your search criteria.</p>
-    {% endif %}
+    <!-- Blog Cards -->
+    <div class="blogs-container">
+        {% if blogs %}
+            {% for blog in blogs %}
+            <div class="blog-card">
+                <h3 class="blog-title">{{ blog.title }}</h3>
+                <p class="blog-meta">By <strong>{{ blog.author.name }}</strong> • {{ blog.created_at.strftime('%d %B %Y') }}</p>
+                <a href="{{ url_for('views.blog_details', blog_id=blog.id) }}" class="btn read-more-btn">Read More →</a>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p class="no-blogs">No blogs found. Try searching with different keywords.</p>
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

@@ -65,7 +65,7 @@ def signup():
 
             try:
                 db.session.add(new_member)
-                db.session.flush()  # Flush to get new_member.id before committing
+                db.session.flush()
 
                 new_user = User(
                     email=email,
@@ -87,7 +87,15 @@ def signup():
     return render_template('signup.html', user=current_user)
 
 
-
 @auth.route('/contact',methods=['GET','POST'])
-def contactus():
-    return render_template('contactblog.html')
+def help_us():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+
+        flash('Your request has been submitted. We will get back to you soon.', 'success')
+
+        return redirect(url_for('auth.help_us'))
+
+    return render_template('help_desk.html',user=current_user)

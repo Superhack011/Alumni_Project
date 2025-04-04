@@ -1,5 +1,5 @@
 from . import db
-from sqlalchemy.sql import func
+# from sqlalchemy.sql import func
 from flask_login import UserMixin
 from datetime import datetime
 import json
@@ -53,14 +53,13 @@ class Member(db.Model):
     )
 
     def get_list(self, field):
-        """Convert a JSON-encoded field to a Python list."""
-        field_value = getattr(self, field, "[]")  # Get the field value or use an empty list as default
-        if not field_value:  # If field_value is None or empty string, return an empty list
+        field_value = getattr(self, field, "[]")  
+        if not field_value: 
             return []
         try:
-            return json.loads(field_value)  # Try parsing the JSON data
+            return json.loads(field_value)
         except json.JSONDecodeError:
-            return []  # Return an empty list if the JSON is invalid
+            return [] 
 
     def is_friend(self, friend):
         return self.friends.filter_by(id=friend.id).count() > 0
@@ -137,8 +136,6 @@ class Project(db.Model):
 
     member_id = db.Column(db.Integer,db.ForeignKey('member.id'),nullable=False)
 
-
-
 class Alumni(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -161,7 +158,6 @@ class Alumni(db.Model):
         if content and content != "NONE":
             return content.split("\n")
         return []
-
 
 class Job(db.Model):
     id = db.Column(db.Integer, primary_key=True)

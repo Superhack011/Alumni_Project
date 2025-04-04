@@ -1,0 +1,174 @@
+.help-us-container {
+    max-width: 700px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.help-us-container h2 {
+    font-size: 30px;
+    color: #0056b3;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.help-us-container h2::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: #0056b3;
+    margin: 8px auto 0;
+    border-radius: 2px;
+}
+
+.help-us-container h4 {
+    font-size: 22px;
+    color: #444;
+    font-weight: 500;
+    text-align: center;
+    font-style: italic;
+    margin-bottom: 25px;
+    padding: 5px;
+    transition: color 0.3s ease-in-out;
+}
+
+.help-us-container h4:hover {
+    color: #007bff;
+}
+
+.help-us-container h3 {
+    font-size: 22px;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.help-desk form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.help-desk .form-group {
+    text-align: left;
+}
+
+.help-desk label {
+    font-size: 14px;
+    color: #555;
+    font-weight: bold;
+}
+
+.help-desk input,
+.help-desk textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.help-desk input:focus,
+.help-desk textarea:focus {
+    border-color: #0056b3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 86, 179, 0.3);
+}
+
+.help-desk .submit-btn {
+    padding: 12px;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background 0.3s;
+}
+
+.help-desk .submit-btn:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+.chatbot-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #eef5ff;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-section p {
+    font-size: 16px;
+    color: #555;
+}
+
+.flash-message {
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.contact {
+    text-align: center;
+    background: #f8f9fa;
+    color: #333;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 1rem auto;
+  }
+  
+  .contact h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+  }
+  
+  .contact p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .contact-links a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .contact-links a i {
+    margin-right: 5px;
+  }
+  
+  .contact-links a:hover {
+    background: #007bff;
+    color: white;
+  }
+  

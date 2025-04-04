@@ -1,0 +1,164 @@
+.hero {
+  background: linear-gradient(rgba(44, 62, 80, 0.8), rgba(44, 62, 80, 0.8)),
+    url("/static/images/hero.jpeg");
+  background-repeat: no-repeat;
+
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  padding: 80px 0;
+  color: white;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.features {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.feature-card {
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.news {
+  padding: 60px 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.story-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.story-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.read-more {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.read-more:hover {
+  text-decoration: underline;
+}
+
+.events {
+  padding: 60px 0;
+  background: #f8f9fa;
+}
+
+.event-list {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+
+.event-list li {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.event-list a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.event-list a:hover {
+  text-decoration: underline;
+}
+
+.reviews {
+  padding: 60px 0;
+  background: #ffffff;
+}
+
+.review-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.review-card {
+  width: 320px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-pic {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.review-info {
+  text-align: left;
+}
+
+.review-name {
+  font-weight: bold;
+}
+
+.review-stars {
+  color: #f1c40f;
+  font-size: 18px;
+}
+
+.review-text {
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.review-date {
+  font-size: 0.9rem;
+  color: gray;
+}

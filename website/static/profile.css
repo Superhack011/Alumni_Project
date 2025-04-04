@@ -1,239 +1,184 @@
-/* General Reset */
-* {
-    margin: 0;
-    padding: 0;
-}
-
-/* Body Style */
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #e2e0e0; /* Light gray background */
-    color: #444; /* Dark gray text color */
-}
-
-
-
-/* Navbar Styles */
 .navbar {
-    background-color: #007BFF; /* Bootstrap primary color */
-    padding: 15px 20px; /* Increased padding */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    display: flex; /* Use flexbox for layout */
-    justify-content: flex-end; /* Align items to the right */
+    background: #2c3e50;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Dropdown Container Styles */
 .navbar-right {
-    display: flex; /* Flexbox to allow alignment */
-    align-items: center; /* Center items vertically */
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-/* Dropdown Button Styles */
 .dropbtn {
-    background-color: transparent; /* No full background */
-    color: #fff; /* Button text color */
-    padding: 10px 20px; /* Padding */
+    background: #aeafaf;
+    color: rgba(255, 255, 255, 0.788);
+    padding: 12px 20px;
     font-size: 16px;
     border: none;
+    border-radius: 6px;
     cursor: pointer;
-    border-radius: 5px; /* Rounded corners */
-    transition: color 0.3s ease; /* Smooth transition for color */
+    transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .dropbtn:hover {
-    color: #e6e6e6; /* Change text color on hover */
+    background: #e8edf3;
+    transform: scale(1.05);
 }
 
-/* Arrow Styles */
-.arrow {
-    margin-left: 5px; /* Space between text and arrow */
-    font-size: 12px; /* Arrow size */
-    vertical-align: middle; /* Align arrow with text */
-}
-
-/* Dropdown Content Styles */
 .dropdown-content {
-    display: none; /* Hidden by default */
+    display: none;
     position: absolute;
-    right: 0; /* Align dropdown to the right */
-    background-color: #fff; /* White background for dropdown */
-    min-width: 160px;
-    z-index: 1;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Shadow for dropdown */
+    right: 0;
+    background: white;
+    width: 180px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    z-index: 100;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Show dropdown on button hover */
-.dropdown:hover .dropdown-content {
-    display: block; /* Show dropdown on hover */
-}
-
-/* Dropdown Links Styles */
 .dropdown-content a {
-    color: #333; /* Dark text color */
-    padding: 12px 16px;
-    text-decoration: none;
     display: block;
-    transition: background-color 0.3s ease; /* Smooth transition */
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+    transition: background 0.3s ease, padding-left 0.2s ease;
 }
 
 .dropdown-content a:hover {
-    background-color: #f1f1f1; /* Highlight color on hover */
+    background: #f1f1f1;
+    color: #007bff;
+    padding-left: 18px;
 }
 
+.dropdown:hover .dropdown-content {
+    display: block;
+}
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-
-
-
-
-
-
-
-/* Scope styles to .profile-container to avoid affecting layout.html */
 .profile-container {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    color: #333;
-    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 50px 20px;
 }
 
-/* Profile Header */
-.profile-container .profile-header {
+.profile-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.12);
+    padding: 50px;
+    width: 85%;
+    max-width: 950px;
     text-align: center;
-    margin-bottom: 20px;
 }
 
-.profile-container .profile-pic {
-    width: 120px;
-    height: 120px;
+.profile-pic {
+    width: 160px;
+    height: 160px;
     border-radius: 50%;
-    border: 3px solid #ffc107;
-    margin-bottom: 15px;
+    object-fit: cover;
+    border: 6px solid #007bff;
+    box-shadow: 0px 5px 12px rgba(0, 123, 255, 0.3);
+    transition: transform 0.3s ease-in-out;
 }
 
-.profile-container .profile-header h2 {
-    font-size: 24px;
-    color: #333;
-    margin: 10px 0;
+.profile-pic:hover {
+    transform: scale(1.05);
 }
 
-.profile-container .bio,
-.profile-container .specialization {
-    font-size: 14px;
+.member-name {
+    margin-top: 20px;
+    font-size: 30px;
+    font-weight: 600;
+    color: #222;
+}
+
+.bio, .specialization {
+    font-size: 18px;
     color: #555;
 }
 
-/* Section Headers */
-.profile-container h3 {
+.profile-section {
+    margin-top: 30px;
+    text-align: left;
+    padding: 25px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in-out;
+}
+
+.profile-section:hover {
+    transform: scale(1.02);
+}
+
+.profile-section h3 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #007bff;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+.profile-section p, .profile-section li {
     font-size: 18px;
     color: #444;
-    border-bottom: 2px solid #ffc107;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
+    line-height: 1.8;
 }
 
-/* Contact Information */
-.profile-container .contact-info p {
-    font-size: 14px;
-    margin: 5px 0;
+.friend-link {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
-/* Achievements and Experience */
-.profile-container .academic-achievements ul,
-.profile-container .professional-experience ul {
-    list-style: disc;
-    margin-left: 20px;
+.friend-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
 }
 
-.profile-container .academic-achievements li,
-.profile-container .professional-experience li {
-    font-size: 14px;
-    margin: 5px 0;
-}
-
-/* Networking Section */
-.profile-container .networking ul.friend-list {
-    margin: 0;
-    padding: 0;
-}
-
-.profile-container .networking li.friend {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 14px;
-    margin: 8px 0;
-    padding: 5px 10px;
-    background-color: #f8f9fa;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    transition: 0.3s;
-}
-
-.profile-container .networking li.friend:hover {
-    background-color: #ffc107;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* Chat Section */
-.profile-container .chat-section {
-    margin-top: 20px;
-}
-
-.profile-container .chat-area {
-    background: #f1f1f1;
-    padding: 10px;
-    border-radius: 5px;
-    height: 150px;
-    overflow-y: auto;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-}
-
-.center-content {
-    text-align: center; /* Centers the content horizontally */
-    margin-top: 20px;   /* Adds some spacing from the top */
-}
-
-.center-content hr {
-    width: 50%;          /* Adjusts the width of the line */
-    margin: 10px auto;   /* Centers the line horizontally */
-    border: 1px solid #ddd; /* Optional styling for the line */
-}
-
-.center-content .btn {
-    margin-top: 10px;    /* Adds space above the button */
-}
-
-/* Reviews */
-.profile-container .reviews p {
-    font-style: italic;
-    color: #555;
-    font-size: 14px;
-}
-
-/* Responsive Design */
-@media screen and (max-width: 768px) {
-    .profile-container {
-        padding: 15px;
+@media (max-width: 1024px) {
+    .profile-card {
+        width: 95%;
+        padding: 40px;
     }
 
-    .profile-container .profile-header h2 {
+    .profile-section {
+        padding: 20px;
+    }
+
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+    }
+
+    .member-name {
+        font-size: 26px;
+    }
+
+    .profile-section h3 {
         font-size: 20px;
     }
 
-    .profile-container .contact-info p,
-    .profile-container .academic-achievements li,
-    .profile-container .professional-experience li {
-        font-size: 12px;
-    }
-
-    .profile-container .chat-section {
-        margin-top: 15px;
+    .profile-section p, .profile-section li {
+        font-size: 16px;
     }
 }
