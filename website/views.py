@@ -305,11 +305,9 @@ def reviews():
 
     if request.method == 'POST':
         ### Get data from the form
-        member_id = request.form.get('member_id')  
+        member = current_user.member
         stars = request.form.get('stars')
         review_text = request.form.get('review_text')
-
-        member = Member.query.get(int(member_id))
 
         if not stars or not review_text:
             flash("Both stars and review text are required!", "danger")
@@ -318,7 +316,7 @@ def reviews():
         new_review = Reviews(
             stars=int(stars),
             review_text=review_text,
-            member_id=int(member_id),
+            member_id=int(member.id),
             name=member.name
         )
         db.session.add(new_review)

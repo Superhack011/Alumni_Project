@@ -29,6 +29,7 @@
     "electron-to-chromium": "^1.5.128",
     "escalade": "^3.2.0",
     "fraction.js": "^4.3.7",
+    "localtunnel": "^2.0.2",
     "nanoid": "^3.3.11",
     "node-releases": "^2.0.19",
     "normalize-range": "^0.1.2",
